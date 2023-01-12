@@ -3,8 +3,8 @@ module github.com/turbot/steampipe-plugin-auth0
 go 1.19
 
 require (
-	github.com/auth0/go-auth0 v0.13.1
-	github.com/turbot/steampipe-plugin-sdk/v5 v5.0.0-dev.8
+	github.com/auth0/go-auth0 v0.14.0
+	github.com/turbot/steampipe-plugin-sdk/v5 v5.0.2
 )
 
 require (
@@ -69,12 +69,12 @@ require (
 	github.com/prometheus/common v0.33.0 // indirect
 	github.com/prometheus/procfs v0.7.3 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
-	github.com/sethvargo/go-retry v0.2.4 // indirect
+	github.com/sethvargo/go-retry v0.1.0 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/stevenle/topsort v0.0.0-20130922064739-8130c1d7596b // indirect
 	github.com/tkrajina/go-reflector v0.5.4 // indirect
-	github.com/turbot/go-kit v0.5.0-rc.3 // indirect
+	github.com/turbot/go-kit v0.5.0-rc.4 // indirect
 	github.com/ulikunitz/xz v0.5.8 // indirect
 	github.com/zclconf/go-cty v1.12.1 // indirect
 	go.opencensus.io v0.22.4 // indirect
@@ -89,15 +89,15 @@ require (
 	go.opentelemetry.io/otel/sdk/metric v0.30.0 // indirect
 	go.opentelemetry.io/otel/trace v1.10.0 // indirect
 	go.opentelemetry.io/proto/otlp v0.16.0 // indirect
-	golang.org/x/exp v0.0.0-20220518171630-0b5c67f07fdf // indirect
+	golang.org/x/exp v0.0.0-20221109205753-fc8884afc316 // indirect
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
-	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4 // indirect
-	golang.org/x/net v0.0.0-20220520000938-2e3eb7b945c2 // indirect
-	golang.org/x/oauth2 v0.0.0-20220411215720-9780585627b5 // indirect
+	golang.org/x/mod v0.6.0 // indirect
+	golang.org/x/net v0.3.0 // indirect
+	golang.org/x/oauth2 v0.3.0 // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
 	golang.org/x/sys v0.3.0 // indirect
-	golang.org/x/text v0.3.7 // indirect
-	golang.org/x/tools v0.1.11 // indirect
+	golang.org/x/text v0.5.0 // indirect
+	golang.org/x/tools v0.2.0 // indirect
 	google.golang.org/api v0.30.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20220407144326-9054f6ed7bac // indirect
