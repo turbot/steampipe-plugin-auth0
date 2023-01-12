@@ -13,7 +13,7 @@ import (
 func tableAuth0Organization() *plugin.Table {
 	return &plugin.Table{
 		Name:        "auth0_organization",
-		Description: "",
+		Description: "Organization is used to allow B2B customers to better manage their partners and customers, and to customize the ways that end-users access their applications.",
 		List: &plugin.ListConfig{
 			Hydrate: listAuth0Organizations,
 		},
@@ -23,9 +23,11 @@ func tableAuth0Organization() *plugin.Table {
 		},
 
 		Columns: []*plugin.Column{
-			{Name: "id", Description: "", Type: proto.ColumnType_STRING, Transform: transform.FromField("ID")},
-			{Name: "name", Description: "", Type: proto.ColumnType_STRING},
-			{Name: "display_name", Description: "", Type: proto.ColumnType_STRING},
+			{Name: "id", Description: "Organization identifier", Type: proto.ColumnType_STRING, Transform: transform.FromField("ID")},
+			{Name: "name", Description: "Name of this organization.", Type: proto.ColumnType_STRING},
+			{Name: "display_name", Description: "DisplayName of this organization.", Type: proto.ColumnType_STRING},
+			{Name: "branding", Description: "Branding defines how to style the login pages", Type: proto.ColumnType_STRING},
+			{Name: "metadata", Description: "Metadata associated with the organization.", Type: proto.ColumnType_STRING},
 		},
 	}
 }
@@ -57,7 +59,7 @@ func listAuth0Organizations(ctx context.Context, d *plugin.QueryData, _ *plugin.
 	return nil, err
 }
 
-//// LIST FUNCTION
+//// GET FUNCTION
 
 func getAuth0Organizations(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	logger := plugin.Logger(ctx)
@@ -80,6 +82,5 @@ func getAuth0Organizations(ctx context.Context, d *plugin.QueryData, _ *plugin.H
 		return nil, err
 	}
 
-	d.StreamListItem(ctx, organizationsResponse)
-	return nil, err
+	return organizationsResponse, nil
 }
