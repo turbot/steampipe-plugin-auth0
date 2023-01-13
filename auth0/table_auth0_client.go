@@ -3,6 +3,7 @@ package auth0
 import (
 	"context"
 
+	"github.com/auth0/go-auth0/management"
 	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
@@ -73,18 +74,28 @@ func listAuth0Clients(ctx context.Context, d *plugin.QueryData, _ *plugin.Hydrat
 		return nil, err
 	}
 
-	clientsResponse, err := client.Client.List()
-	if err != nil {
-		logger.Error("auth0_client.listAuth0Clients", "list_clients_error", err)
-		return nil, err
-	}
-	for _, client := range clientsResponse.Clients {
-		d.StreamListItem(ctx, client)
-
-		// Context can be cancelled due to manual cancellation or the limit has been hit
-		if d.RowsRemaining(ctx) == 0 {
-			return nil, nil
+	var pageNumber int
+	for {
+		clientsResponse, err := client.Client.List(
+			management.Page(pageNumber),
+		)
+		if err != nil {
+			logger.Error("auth0_client.listAuth0Clients", "list_clients_error", err)
+			return nil, err
 		}
+		for _, client := range clientsResponse.Clients {
+			d.StreamListItem(ctx, client)
+
+			// Context can be cancelled due to manual cancellation or the limit has been hit
+			if d.RowsRemaining(ctx) == 0 {
+				return nil, nil
+			}
+		}
+
+		if clientsResponse.Start+len(clientsResponse.Clients) >= clientsResponse.Total {
+			break
+		}
+		pageNumber = pageNumber + 1
 	}
 
 	return nil, err

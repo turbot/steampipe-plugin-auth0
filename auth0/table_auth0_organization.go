@@ -3,6 +3,7 @@ package auth0
 import (
 	"context"
 
+	"github.com/auth0/go-auth0/management"
 	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
@@ -42,18 +43,26 @@ func listAuth0Organizations(ctx context.Context, d *plugin.QueryData, _ *plugin.
 		return nil, err
 	}
 
-	organizationsResponse, err := client.Organization.List()
-	if err != nil {
-		logger.Error("auth0_organization.listAuth0Organizations", "list_organizations_error", err)
-		return nil, err
-	}
-	for _, organization := range organizationsResponse.Organizations {
-		d.StreamListItem(ctx, organization)
-
-		// Context can be cancelled due to manual cancellation or the limit has been hit
-		if d.RowsRemaining(ctx) == 0 {
-			return nil, nil
+	var nextPage string
+	for {
+		organizationsResponse, err := client.Organization.List(
+			management.From(nextPage),
+		)
+		if err != nil {
+			logger.Error("auth0_organization.listAuth0Organizations", "list_organizations_error", err)
+			return nil, err
 		}
+		for _, organization := range organizationsResponse.Organizations {
+			d.StreamListItem(ctx, organization)
+			// Context can be cancelled due to manual cancellation or the limit has been hit
+			if d.RowsRemaining(ctx) == 0 {
+				return nil, nil
+			}
+		}
+		if organizationsResponse.Next == "" {
+			break
+		}
+		nextPage = organizationsResponse.Next
 	}
 
 	return nil, err
