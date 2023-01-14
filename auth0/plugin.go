@@ -23,6 +23,7 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			"auth0_connection":   tableAuth0Connection(),
 			"auth0_organization": tableAuth0Organization(),
 			"auth0_user":         tableAuth0User(),
+			"auth0_role":         tableAuth0Role(),
 		},
 	}
 
