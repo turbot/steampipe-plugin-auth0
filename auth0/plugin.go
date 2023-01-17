@@ -21,9 +21,10 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 		TableMap: map[string]*plugin.Table{
 			"auth0_client":       tableAuth0Client(),
 			"auth0_connection":   tableAuth0Connection(),
+			"auth0_hook":         tableAuth0Hook(),
 			"auth0_organization": tableAuth0Organization(),
-			"auth0_user":         tableAuth0User(),
 			"auth0_role":         tableAuth0Role(),
+			"auth0_user":         tableAuth0User(),
 		},
 	}
 
