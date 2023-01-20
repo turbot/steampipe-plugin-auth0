@@ -19,14 +19,15 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			Schema:      ConfigSchema,
 		},
 		TableMap: map[string]*plugin.Table{
-			"auth0_client":       tableAuth0Client(),
-			"auth0_connection":   tableAuth0Connection(),
-			"auth0_hook":         tableAuth0Hook(),
-			"auth0_log":          tableAuth0Log(),
-			"auth0_organization": tableAuth0Organization(),
-			"auth0_role":         tableAuth0Role(),
-			"auth0_signing_key":  tableAuth0SigningKey(),
-			"auth0_user":         tableAuth0User(),
+			"auth0_client":          tableAuth0Client(),
+			"auth0_connection":      tableAuth0Connection(),
+			"auth0_hook":            tableAuth0Hook(),
+			"auth0_log":             tableAuth0Log(),
+			"auth0_organization":    tableAuth0Organization(),
+			"auth0_role":            tableAuth0Role(),
+			"auth0_signing_key":     tableAuth0SigningKey(),
+			"auth0_user":            tableAuth0User(),
+			"auth0_tenant_settings": tableAuth0TenantSettings(),
 		},
 	}
 
