@@ -50,6 +50,7 @@ func tableAuth0User() *plugin.Table {
 			{Name: "picture", Description: "The user's picture url.", Type: proto.ColumnType_STRING},
 			{Name: "url", Description: "A URL provided by the user in association with their profile.", Type: proto.ColumnType_STRING, Transform: transform.FromField("URL")},
 			{Name: "blocked", Description: "True if the user is blocked from the application, false if the user is enabled.", Type: proto.ColumnType_BOOL},
+			{Name: "blocked_for", Description: "Array of identifier + blocked IP addresses. IP address may be omitted in certain circumstances (such as Account Lockout mode).", Type: proto.ColumnType_JSON, Hydrate: getBlockedFor, Transform: transform.FromValue()},
 			{Name: "last_ip", Description: "Last IP address from which this user logged in. Read only, cannot be modified.", Type: proto.ColumnType_STRING, Transform: transform.FromField("LastIP")},
 			{Name: "logins_count", Description: "Total number of logins this user has performed. Read only, cannot be modified.", Type: proto.ColumnType_INT},
 			{Name: "multifactor", Description: "List of multi-factor authentication providers with which this user has enrolled.", Type: proto.ColumnType_JSON},
@@ -113,6 +114,25 @@ func getAuth0Users(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateDa
 	usersResponse, err := client.User.Read(id)
 	if err != nil {
 		logger.Error("auth0_user.getAuth0Users", "get_users_error", err)
+		return nil, err
+	}
+
+	return usersResponse, nil
+}
+
+func getBlockedFor(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+	logger := plugin.Logger(ctx)
+	user := h.Item.(*management.User)
+	client, err := Connect(ctx, d)
+	if err != nil {
+		logger.Error("auth0_user.getBlockedFor", "connect_error", err)
+		return nil, err
+	}
+
+	usersResponse, err := client.User.Blocks(*user.ID)
+	logger.Warn("usersResponse", usersResponse)
+	if err != nil {
+		logger.Error("auth0_user.getBlockedFor", "get_users_error", err)
 		return nil, err
 	}
 
