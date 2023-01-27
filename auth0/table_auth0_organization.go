@@ -27,8 +27,8 @@ func tableAuth0Organization() *plugin.Table {
 			{Name: "id", Description: "Organization identifier", Type: proto.ColumnType_STRING, Transform: transform.FromField("ID")},
 			{Name: "name", Description: "Name of this organization.", Type: proto.ColumnType_STRING},
 			{Name: "display_name", Description: "DisplayName of this organization.", Type: proto.ColumnType_STRING},
-			{Name: "branding", Description: "Branding defines how to style the login pages", Type: proto.ColumnType_STRING},
-			{Name: "metadata", Description: "Metadata associated with the organization.", Type: proto.ColumnType_STRING},
+			{Name: "branding", Description: "Branding defines how to style the login pages", Type: proto.ColumnType_JSON},
+			{Name: "metadata", Description: "Metadata associated with the organization.", Type: proto.ColumnType_JSON},
 		},
 	}
 }

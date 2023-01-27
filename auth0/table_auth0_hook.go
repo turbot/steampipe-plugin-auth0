@@ -14,7 +14,7 @@ import (
 func tableAuth0Hook() *plugin.Table {
 	return &plugin.Table{
 		Name:        "auth0_hook",
-		Description: "Hook represents an Auth0 hook resource.",
+		Description: "Hooks allow you to customize the behavior of Auth0 with Node.js code that is executed in selected extension points.",
 		List: &plugin.ListConfig{
 			Hydrate: listAuth0Hooks,
 		},
@@ -27,7 +27,7 @@ func tableAuth0Hook() *plugin.Table {
 			{Name: "id", Description: "A unique ID for the hook.", Type: proto.ColumnType_STRING, Transform: transform.FromField("ID")},
 			{Name: "name", Description: "The name of the hook.", Type: proto.ColumnType_STRING},
 			{Name: "script", Description: "A script that contains the hook's code.", Type: proto.ColumnType_STRING},
-			{Name: "triggerID", Description: "The extensibility point name. Can currently be any of the following: credentials-exchange, pre-user-registration, post-user-registration, post-change-password.", Type: proto.ColumnType_STRING, Transform: transform.FromField("TriggerID")},
+			{Name: "trigger_id", Description: "The extensibility point name. Can currently be any of the following: credentials-exchange, pre-user-registration, post-user-registration, post-change-password.", Type: proto.ColumnType_STRING, Transform: transform.FromField("TriggerID")},
 			{Name: "dependencies", Description: "Used to store additional metadata.", Type: proto.ColumnType_JSON},
 			{Name: "enabled", Description: "Enabled should be set to true if the hook is enabled, false otherwise.", Type: proto.ColumnType_BOOL},
 		},
