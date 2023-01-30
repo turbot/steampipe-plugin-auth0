@@ -10,8 +10,7 @@ User represents an Auth0 user resource.
 select
   email,
   id,
-  name,
-  given_name
+  updated_at
 from
   auth0_user
 where

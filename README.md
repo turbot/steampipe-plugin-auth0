@@ -2,7 +2,7 @@
 
 # Auth0 Plugin for Steampipe
 
-Use SQL to query users, roles, connections and more from Auth0.
+Use SQL to query users, clients, connections, keys and more from Auth0.
 
 - **[Get started →](https://hub.steampipe.io/plugins/turbot/auth0)**
 - Documentation: [Table definitions & examples](https://hub.steampipe.io/plugins/turbot/auth0/tables)
@@ -20,7 +20,14 @@ steampipe plugin install auth0
 Run a query:
 
 ```sql
-
+select
+  email,
+  id,
+  updated_at
+from
+  auth0_user
+where
+  not email_verified
 ```
 
 ## Developing
