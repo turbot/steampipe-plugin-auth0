@@ -15,7 +15,7 @@ select
 from
   auth0_connection
 where
-  options -> 'mfa' ->> 'active' = 'true'
+  options -> 'mfa' ->> 'active' = 'true';
 ```
 
 ### Connections with sign up disabled
@@ -28,7 +28,7 @@ select
 from
   auth0_connection
 where
-  options ->> 'disable_signup' = 'false'
+  options ->> 'disable_signup' = 'false';
 ```
 
 ### Connections with brutal force protection
@@ -41,7 +41,7 @@ select
 from
   auth0_connection
 where
-  options ->> 'brute_force_protection' = 'false'
+  options ->> 'brute_force_protection' = 'false';
 ```
 
 ### Password settings
@@ -58,5 +58,5 @@ select
 from
   auth0_connection
 where
-  strategy = 'auth0'
+  strategy = 'auth0';
 ```

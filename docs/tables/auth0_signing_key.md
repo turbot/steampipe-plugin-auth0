@@ -13,7 +13,7 @@ select
 from
   auth0_signing_key
 where
-  current
+  current;
 ```
 
 ### Next signing key
@@ -26,7 +26,7 @@ select
 from
   auth0_signing_key
 where
-  next
+  next;
 ```
 
 ### Previous signing key
@@ -41,7 +41,7 @@ select
 from
   auth0_signing_key
 where
-  previous
+  previous;
 ```
 
 ### Average time previous signing key had been available
@@ -52,7 +52,7 @@ select
 from
   auth0_signing_key
 where
-  previous
+  previous;
 ```
 
 ### Revoked signing keys
@@ -68,6 +68,6 @@ from
 where
   revoked
 order by
-  revoked_at desc
+  revoked_at desc;
 ```
 

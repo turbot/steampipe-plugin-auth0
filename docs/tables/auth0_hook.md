@@ -17,7 +17,7 @@ select
 from
   auth0_hook
 where
- enabled
+ enabled;
 ```
 
 ### Post change password script
@@ -32,7 +32,7 @@ select
 from
   auth0_hook
 where
- trigger_id = 'post-change-password'
+ trigger_id = 'post-change-password';
 ```
 
 ### User registration scripts
@@ -47,5 +47,5 @@ select
 from
   auth0_hook
 where
- trigger_id in ('pre-user-registration', 'post-user-registration')
+ trigger_id in ('pre-user-registration', 'post-user-registration');
 ```

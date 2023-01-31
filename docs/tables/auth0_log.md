@@ -19,7 +19,7 @@ from
 where
   type = 'f'
 order by
-  date desc
+  date desc;
 ```
 
 ### Logs filtered by client
@@ -35,7 +35,7 @@ from
 where
    client_id = 'FrSZDDFGUH0afar5LHmCji1khmPmst6R'
 order by
-  date desc
+  date desc;
 ```
 
 ### Account and IP blockings
@@ -51,7 +51,7 @@ from
 where
   type in ('limit_mu', 'limit_wc', 'limit_sul')
 order by
-  date desc
+  date desc;
 ```
 
 ### Amount of mobile and non-mobile successful logins
@@ -65,5 +65,5 @@ from
 where
   type = 's'
 group by
-  is_mobile
+  is_mobile;
 ```

@@ -14,7 +14,7 @@ select
 from
   auth0_user
 where
-  not email_verified
+  not email_verified;
 ```
 
 ### Ranking of most used auth connections
@@ -29,7 +29,7 @@ from
 group by
   i ->> 'connection'
 order by
-  count desc
+  count desc;
 ```
 
 ### Users signed up through GitHub
@@ -42,5 +42,5 @@ select
 from
   auth0_user
 where
-  identities -> 0 ->> 'connection' = 'github'
+  identities -> 0 ->> 'connection' = 'github';
 ```

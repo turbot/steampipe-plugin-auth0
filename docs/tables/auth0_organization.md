@@ -16,7 +16,7 @@ select
 from
   auth0_organization
 order by
-  name
+  name;
 ```
 
 ### Filter my organizations by metadata tags
@@ -32,5 +32,5 @@ from
 where
   metadata ->> 'cost_id' = 'e42345'
 order by
-  name
+  name;
 ```

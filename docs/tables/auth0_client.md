@@ -14,7 +14,7 @@ select
 from
   auth0_client
 group by
-  app_type
+  app_type;
 ```
 
 ### Token lifetime
@@ -28,7 +28,7 @@ select
 from
   auth0_client
 order by
-  name
+  name;
 ```
 
 ### Grant types of a client
@@ -40,5 +40,5 @@ from
   auth0_client c,
   jsonb_array_elements(grant_types) g
 where
-  client_id = 'Jh5ap2mN94TJmZZ1sVeVmtW9Fpaim190'
+  client_id = 'Jh5ap2mN94TJmZZ1sVeVmtW9Fpaim190';
 ```

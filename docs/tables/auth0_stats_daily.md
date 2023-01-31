@@ -15,7 +15,7 @@ from
   auth0_stats_daily
 order by
   sign_ups desc
-limit 5
+limit 5;
 ```
 
 ### Last 12 months average number of logins
@@ -40,5 +40,5 @@ from
 where
   leaked_passwords != 0
 order by
-  leaked_passwords desc
+  leaked_passwords desc;
 ```
