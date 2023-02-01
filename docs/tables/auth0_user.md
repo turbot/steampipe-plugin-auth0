@@ -4,6 +4,34 @@ User represents an Auth0 user resource.
 
 ## Examples
 
+### Users without MFA
+
+```sql
+select
+  email,
+  id,
+  updated_at
+from
+  auth0_user
+where
+  multifactor is null;
+```
+
+### Admin users without MFA
+
+```sql
+select
+  email,
+  id,
+  updated_at
+from
+  auth0_user,
+  jsonb_array_elements(roles) r
+where
+  r->> 'name' = 'admin' and
+  multifactor is null;
+```
+
 ### Users with unverified email
 
 ```sql
@@ -63,12 +91,12 @@ where
 
 ```sql
 select
-  p ->> 'id' as id,
-  p ->> 'name' as name,
-  p ->> 'description' as description
+  r ->> 'id' as id,
+  r ->> 'name' as name,
+  r ->> 'description' as description
 from
   auth0_user,
-  jsonb_array_elements(roles) p
+  jsonb_array_elements(roles) r
 where
   email = 'select-joey@mail.com';
 ```
