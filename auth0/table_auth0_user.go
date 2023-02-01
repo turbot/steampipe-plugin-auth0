@@ -55,6 +55,7 @@ func tableAuth0User() *plugin.Table {
 			{Name: "logins_count", Description: "Total number of logins this user has performed. Read only, cannot be modified.", Type: proto.ColumnType_INT},
 			{Name: "multifactor", Description: "List of multi-factor authentication providers with which this user has enrolled.", Type: proto.ColumnType_JSON},
 			{Name: "roles", Description: "List of roles the user is assigned to.", Type: proto.ColumnType_JSON, Transform: transform.FromValue(), Hydrate: getAuth0UsersRoles},
+			{Name: "permissions", Description: "List of permissions granted to the user.", Type: proto.ColumnType_JSON, Transform: transform.FromValue(), Hydrate: getAuth0UsersPermissions},
 		},
 	}
 }
@@ -172,4 +173,38 @@ func getAuth0UsersRoles(ctx context.Context, d *plugin.QueryData, h *plugin.Hydr
 		pageNumber = pageNumber + 1
 	}
 	return roles, err
+}
+
+//// GET USERS PERMISSIONS FUNCTION
+
+func getAuth0UsersPermissions(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+	logger := plugin.Logger(ctx)
+	user := h.Item.(*management.User)
+	client, err := Connect(ctx, d)
+	if err != nil {
+		logger.Error("auth0_user.getAuth0UsersPermissions", "connect_error", err)
+		return nil, err
+	}
+
+	var permissions []*management.Permission
+	var pageNumber, perPage int
+	perPage = 50
+	for {
+		permissionsResponse, err := client.User.Permissions(
+			*user.ID,
+			management.PerPage(perPage),
+			management.Page(pageNumber),
+		)
+		if err != nil {
+			logger.Error("auth0_user.getAuth0UsersPermissions", "get_users_permissions_error", err)
+			return nil, err
+		}
+		permissions = append(permissions, permissionsResponse.Permissions...)
+
+		if len(permissionsResponse.Permissions) == 0 {
+			break
+		}
+		pageNumber = pageNumber + 1
+	}
+	return permissions, err
 }

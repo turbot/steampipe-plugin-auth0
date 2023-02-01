@@ -44,3 +44,31 @@ from
 where
   identities -> 0 ->> 'connection' = 'github';
 ```
+
+### Granted permissions
+
+```sql
+select
+  p ->> 'permission_name' as permission_name,
+  p ->> 'description' as description,
+  p ->> 'resource_server_name' as resource_server_name
+from
+  auth0_user,
+  jsonb_array_elements(permissions) p
+where
+  email = 'select-joey@mail.com';
+```
+
+### Roles assigned to
+
+```sql
+select
+  p ->> 'id' as id,
+  p ->> 'name' as name,
+  p ->> 'description' as description
+from
+  auth0_user,
+  jsonb_array_elements(roles) p
+where
+  email = 'select-joey@mail.com';
+```
