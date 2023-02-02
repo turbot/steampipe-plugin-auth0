@@ -52,3 +52,55 @@ Download and install the latest Auth0 plugin:
 ```bash
 steampipe plugin install auth0
 ```
+
+### Credentials
+
+| Item        | Description                                                                                                                                                             |
+|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Credentials | Auth0 requires an [API token or a Client ID and Client Secret](https://auth0.com/docs/secure/tokens/access-tokens/management-api-access-tokens) for all requests.       |
+| Permissions | API tokens have the same permissions as the user who creates them, and if the user permissions change, the API token permissions also change.                           |
+| Radius      | Each connection represents a single Auth0 Installation.                                                                                                                 |
+| Resolution  | 1. Credentials explicitly set in a steampipe config file (`~/.steampipe/config/auth0.spc`)<br />2. Credentials specified in environment variables, e.g., `AUTH0_TOKEN`. |
+
+### Configuration
+
+Installing the latest auth0 plugin will create a config file (~/.steampipe/config/auth0.spc) with a single connection named `auth0`:
+
+```hcl
+connection "auth0" {
+  plugin = "auth0"
+
+  # Get your API token from Auth0 https://auth0.com/docs/secure/tokens/access-tokens/management-api-access-tokens
+
+  domain = "<your_auth0_domain>.<region>.auth0.com"
+  api_token = "fyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InZYbjJoN251dFRFbS1ZSndPSEdFdiJ9.eyJpc3MiOiJodHRwczovL2Rldi1zdGVhZHktbGFyay51cy5hdXRoMC5jb20vIiwic3ViIjoickNRWTF6UndJOEFOTzM4RkF3NE5nRFg2dzJIVHJOUWZAY2xp"
+
+  # The bellow client_id and client_secret can be used instead of api_token. If both are specified, api_token will be used over client_id + client_secret.
+  # client_id = "rCQY1zRwI8ANO38FAw4NgDX6w2HTrNQf"
+  # client_secret = "p8vxBHRRLiYDRNAQ9sk37sh2-6k_9XY25YgC2YY-mYcw715hvAl9olXg2Iqqpa7o"
+}
+```
+
+### Credentials from Environment Variables
+
+The Auth0 plugin will use the standard Auth0 environment variables to obtain credentials **only if other arguments (`domain`, `api_token`, `client_id`, `client_secret`) are not specified** in the connection:
+
+#### API Token
+
+```sh
+export AUTH0_DOMAIN=<your_auth0_domain>.<region>.auth0.com
+export AUTH0_API_TOKEN="fyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InZYbjJoN251dFRFbS1ZSndPSEdFdiJ9.eyJpc3MiOiJodHRwczovL2Rldi1zdGVhZHktbGFyay51cy5hdXRoMC5jb20vIiwic3ViIjoickNRWTF6UndJOEFOTzM4RkF3NE5nRFg2dzJIVHJOUWZAY2xp"
+```
+
+#### Client App
+
+```sh
+export AUTH0_DOMAIN=<your_auth0_domain>.<region>.auth0.com
+export AUTH0_CLIENT_ID="rCQY1zRwI8ANO38FAw4NgDX6w2HTrNQf"
+export AUTH0_CLIENT_SECRET="p8vxBHRRLiYDRNAQ9sk37sh2-6k_9XY25YgC2YY-mYcw715hvAl9olXg2Iqqpa7o"
+```
+
+## Get involved
+
+- Open source: https://github.com/turbot/steampipe-plugin-auth0
+- Community: [Slack Channel](https://steampipe.io/community/join)

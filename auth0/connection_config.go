@@ -6,9 +6,10 @@ import (
 )
 
 type auth0Config struct {
-	Domain   *string `cty:"domain"`
-	ClientId *string `cty:"client_id"`
-	Secret   *string `cty:"secret"`
+	Domain       *string `cty:"domain"`
+	ClientId     *string `cty:"client_id"`
+	ClientSecret *string `cty:"client_secret"`
+	ApiToken     *string `cty:"api_token"`
 }
 
 var ConfigSchema = map[string]*schema.Attribute{
@@ -18,7 +19,10 @@ var ConfigSchema = map[string]*schema.Attribute{
 	"client_id": {
 		Type: schema.TypeString,
 	},
-	"secret": {
+	"client_secret": {
+		Type: schema.TypeString,
+	},
+	"api_token": {
 		Type: schema.TypeString,
 	},
 }

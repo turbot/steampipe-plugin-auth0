@@ -18,46 +18,58 @@ func Connect(ctx context.Context, d *plugin.QueryData) (*management.Management, 
 
 	auth0Config := GetConfig(d.Connection)
 
-	var domain, clientId, secret string
+	var domain, clientId, clientSecret, apiToken string
 
 	if auth0Config.Domain != nil {
 		domain = *auth0Config.Domain
 	} else {
-		// TODO review correct env var names
 		domain = os.Getenv("AUTH0_DOMAIN")
 	}
 	if auth0Config.ClientId != nil {
 		clientId = *auth0Config.ClientId
 	} else {
-		// TODO review correct env var names
 		clientId = os.Getenv("AUTH0_CLIENT_ID")
 	}
-	if auth0Config.Secret != nil {
-		secret = *auth0Config.Secret
+	if auth0Config.ClientSecret != nil {
+		clientSecret = *auth0Config.ClientSecret
 	} else {
-		// TODO review correct env var names
-		secret = os.Getenv("AUTH0_SECRET")
+		clientSecret = os.Getenv("AUTH0_CLIENT_SECRET")
+	}
+	if auth0Config.ApiToken != nil {
+		apiToken = *auth0Config.ApiToken
+	} else {
+		apiToken = os.Getenv("AUTH0_API_TOKEN")
 	}
 
 	// No creds
 	if domain == "" {
 		return nil, fmt.Errorf("domain must be configured")
 	}
-	if clientId == "" {
-		return nil, fmt.Errorf("client_id must be configured")
-	}
-	if secret == "" {
-		return nil, fmt.Errorf("secret must be configured")
+
+	if apiToken == "" {
+		if clientId == "" {
+			return nil, fmt.Errorf("either api_token or client_id must be configured")
+		}
+		if clientSecret == "" {
+			return nil, fmt.Errorf("client_secret must be configured")
+		}
 	}
 
-	m, err := management.New(domain, management.WithClientCredentials(clientId, secret))
+	if apiToken != "" {
+		m, err := management.New(domain, management.WithStaticToken(apiToken))
+		if err != nil {
+			return nil, err
+		}
+		// Save session into cache
+		d.ConnectionManager.Cache.Set(sessionCacheKey, m)
+		return m, nil
+	}
+
+	m, err := management.New(domain, management.WithClientCredentials(clientId, clientSecret))
 	if err != nil {
 		return nil, err
 	}
-
 	// Save session into cache
 	d.ConnectionManager.Cache.Set(sessionCacheKey, m)
-
 	return m, nil
-
 }
