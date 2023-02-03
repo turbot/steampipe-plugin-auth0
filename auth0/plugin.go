@@ -19,6 +19,7 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			Schema:      ConfigSchema,
 		},
 		TableMap: map[string]*plugin.Table{
+			"auth0_action":          tableAuth0Action(),
 			"auth0_client":          tableAuth0Client(),
 			"auth0_connection":      tableAuth0Connection(),
 			"auth0_hook":            tableAuth0Hook(),
