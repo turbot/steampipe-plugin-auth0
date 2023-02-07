@@ -31,7 +31,7 @@ where
   options ->> 'disable_signup' = 'false';
 ```
 
-### Connections with brutal force protection
+### Connections with brute-force protection disabled
 
 ```sql
 select
