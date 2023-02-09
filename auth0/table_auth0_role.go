@@ -27,7 +27,6 @@ func tableAuth0Role() *plugin.Table {
 			{Name: "id", Description: "A unique ID for the role.", Type: proto.ColumnType_STRING, Transform: transform.FromField("ID")},
 			{Name: "name", Description: "The name of the role.", Type: proto.ColumnType_STRING},
 			{Name: "description", Description: "A description of the role.", Type: proto.ColumnType_STRING},
-			{Name: "permissions", Description: "List of permissions of the role.", Type: proto.ColumnType_JSON, Transform: transform.FromValue(), Hydrate: getAuth0RolesPermissions},
 			{Name: "users", Description: "List of users assigned to the role.", Type: proto.ColumnType_JSON, Transform: transform.FromValue(), Hydrate: getAuth0RolesUsers},
 		},
 	}
@@ -93,40 +92,6 @@ func getAuth0Roles(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateDa
 	}
 
 	return rolesResponse, nil
-}
-
-//// GET ROLES PERMISSIONS FUNCTION
-
-func getAuth0RolesPermissions(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	logger := plugin.Logger(ctx)
-	role := h.Item.(*management.Role)
-	client, err := Connect(ctx, d)
-	if err != nil {
-		logger.Error("auth0_role.getAuth0RolesPermissions", "connect_error", err)
-		return nil, err
-	}
-
-	var permissions []*management.Permission
-	var pageNumber, perPage int
-	perPage = 50
-	for {
-		permissionsResponse, err := client.Role.Permissions(
-			*role.ID,
-			management.PerPage(perPage),
-			management.Page(pageNumber),
-		)
-		if err != nil {
-			logger.Error("auth0_role.getAuth0RolesPermissions", "get_roles_permissions_error", err)
-			return nil, err
-		}
-		permissions = append(permissions, permissionsResponse.Permissions...)
-
-		if len(permissionsResponse.Permissions) == 0 {
-			break
-		}
-		pageNumber = pageNumber + 1
-	}
-	return permissions, err
 }
 
 //// GET ROLES USERS FUNCTION
