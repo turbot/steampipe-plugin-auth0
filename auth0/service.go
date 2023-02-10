@@ -10,12 +10,16 @@ import (
 )
 
 func Connect(ctx context.Context, d *plugin.QueryData) (*management.Management, error) {
-	// have we already created and cached the session?
-	sessionCacheKey := "Auth0Session"
-	if cachedData, ok := d.ConnectionManager.Cache.Get(sessionCacheKey); ok {
-		return cachedData.(*management.Management), nil
+	conn, err := connectCached(ctx, d, nil)
+	if err != nil {
+		return nil, err
 	}
+	return conn.(*management.Management), nil
+}
 
+var connectCached = plugin.HydrateFunc(connectUncached).Memoize()
+
+func connectUncached(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (any, error) {
 	auth0Config := GetConfig(d.Connection)
 
 	var domain, clientId, clientSecret, apiToken string
@@ -60,8 +64,6 @@ func Connect(ctx context.Context, d *plugin.QueryData) (*management.Management, 
 		if err != nil {
 			return nil, err
 		}
-		// Save session into cache
-		d.ConnectionManager.Cache.Set(sessionCacheKey, m)
 		return m, nil
 	}
 
@@ -69,7 +71,5 @@ func Connect(ctx context.Context, d *plugin.QueryData) (*management.Management, 
 	if err != nil {
 		return nil, err
 	}
-	// Save session into cache
-	d.ConnectionManager.Cache.Set(sessionCacheKey, m)
 	return m, nil
 }
