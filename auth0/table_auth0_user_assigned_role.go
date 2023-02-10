@@ -14,7 +14,7 @@ import (
 func tableAuth0UserAssignedRole() *plugin.Table {
 	return &plugin.Table{
 		Name:        "auth0_user_assigned_role",
-		Description: "",
+		Description: "List of roles assigned to user.",
 		List: &plugin.ListConfig{
 			Hydrate:    listAuth0UserAssignedRoles,
 			KeyColumns: plugin.SingleColumn("user_id"),

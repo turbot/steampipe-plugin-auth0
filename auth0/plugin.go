@@ -25,6 +25,7 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			"auth0_hook":               tableAuth0Hook(),
 			"auth0_log":                tableAuth0Log(),
 			"auth0_organization":       tableAuth0Organization(),
+			"auth0_role_assigned_user": tableAuth0RoleAssignedUser(),
 			"auth0_role_permission":    tableAuth0RolePermission(),
 			"auth0_role":               tableAuth0Role(),
 			"auth0_signing_key":        tableAuth0SigningKey(),

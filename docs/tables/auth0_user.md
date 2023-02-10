@@ -17,21 +17,6 @@ where
   multifactor is null;
 ```
 
-### Admin users without MFA
-
-```sql
-select
-  email,
-  id,
-  updated_at
-from
-  auth0_user,
-  jsonb_array_elements(roles) r
-where
-  r->> 'name' = 'admin' and
-  multifactor is null;
-```
-
 ### Users with unverified email
 
 ```sql
@@ -71,32 +56,4 @@ from
   auth0_user
 where
   identities -> 0 ->> 'connection' = 'github';
-```
-
-### Granted permissions
-
-```sql
-select
-  p ->> 'permission_name' as permission_name,
-  p ->> 'description' as description,
-  p ->> 'resource_server_name' as resource_server_name
-from
-  auth0_user,
-  jsonb_array_elements(permissions) p
-where
-  email = 'select-joey@mail.com';
-```
-
-### Roles assigned to
-
-```sql
-select
-  r ->> 'id' as id,
-  r ->> 'name' as name,
-  r ->> 'description' as description
-from
-  auth0_user,
-  jsonb_array_elements(roles) r
-where
-  email = 'select-joey@mail.com';
 ```
