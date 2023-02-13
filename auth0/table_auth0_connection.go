@@ -28,7 +28,7 @@ func tableAuth0Connection() *plugin.Table {
 			{Name: "name", Description: "The name of the connection.", Type: proto.ColumnType_STRING},
 			{Name: "display_name", Description: "The display name of the connection.", Type: proto.ColumnType_STRING},
 			{Name: "strategy", Description: "The identity provider identifier for the connection.", Type: proto.ColumnType_STRING},
-			{Name: "is_domain_connection", Description: "True if the connection is domain level", Type: proto.ColumnType_BOOL},
+			{Name: "is_domain_connection", Description: "True if the connection is domain level.", Type: proto.ColumnType_BOOL},
 			{Name: "options", Description: "Options for validation.", Type: proto.ColumnType_JSON},
 			{Name: "enabled_clients", Description: "The identifiers of the clients for which the connection is to be enabled.", Type: proto.ColumnType_JSON},
 			{Name: "realms", Description: "Defines the realms for which the connection will be used (ie: email domains).", Type: proto.ColumnType_JSON},
