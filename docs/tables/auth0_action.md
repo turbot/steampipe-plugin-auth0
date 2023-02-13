@@ -56,5 +56,5 @@ select
 from
   auth0_action
 where
-  all_changes_deployed
+  all_changes_deployed;
 ```
