@@ -30,7 +30,7 @@ select
 from
   auth0_action
 where
-  supported_triggers -> 0 ->> 'id' = 'post-change-password'
+  supported_triggers -> 0 ->> 'id' = 'post-change-password';
 ```
 
 ### Action code by name
