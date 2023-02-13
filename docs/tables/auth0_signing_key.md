@@ -43,7 +43,7 @@ where
   previous;
 ```
 
-### Average time previous signing key had been available
+### Average time for which the previous signing keys were available
 
 ```sql
 select
