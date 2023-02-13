@@ -26,7 +26,7 @@ select
 from
   auth0_user
 where
-  not email_verified
+  not email_verified;
 ```
 
 ```
