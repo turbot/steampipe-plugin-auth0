@@ -4,7 +4,6 @@ Role is a collection of permissions that you can apply to user.
 
 ## Examples
 
-
 ### Non-admin roles with 'all:*' permissions
 
 ```sql

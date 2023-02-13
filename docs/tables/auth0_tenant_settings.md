@@ -4,7 +4,6 @@ Tenant settings definitions.
 
 ## Examples
 
-
 ### SSO settings
 
 ```sql

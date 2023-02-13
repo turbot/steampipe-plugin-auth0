@@ -4,7 +4,6 @@ List of users assigned to role.
 
 ## Examples
 
-
 ### List users assigned to a role
 
 ```sql

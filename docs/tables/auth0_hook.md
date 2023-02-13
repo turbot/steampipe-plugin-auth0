@@ -4,7 +4,6 @@ Hooks allow you to customize the behavior of Auth0 with Node.js code that is exe
 
 ## Examples
 
-
 ### Enabled hook scripts
 
 ```sql

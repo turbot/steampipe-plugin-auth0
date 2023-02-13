@@ -4,7 +4,6 @@ Signing keys are used to sign ID tokens, access tokens, SAML assertions, and WS-
 
 ## Examples
 
-
 ### For how long has current signing key been available
 
 ```sql

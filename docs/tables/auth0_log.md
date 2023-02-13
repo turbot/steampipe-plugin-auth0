@@ -5,7 +5,6 @@ Log type codes: https://auth0.com/docs/deploy-monitor/logs/log-event-type-codes
 
 ## Examples
 
-
 ### Failed login attempts
 
 ```sql

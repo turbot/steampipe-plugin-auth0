@@ -4,7 +4,6 @@ Organization is used to allow B2B customers to better manage their partners and 
 
 ## Examples
 
-
 ### List of my organizations
 
 ```sql

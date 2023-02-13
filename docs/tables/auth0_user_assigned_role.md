@@ -4,7 +4,6 @@ List of roles assigned to user.
 
 ## Examples
 
-
 ### Admin users without MFA
 
 ```sql
