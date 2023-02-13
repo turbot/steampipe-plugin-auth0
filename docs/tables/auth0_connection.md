@@ -16,7 +16,7 @@ where
   options -> 'mfa' ->> 'active' = 'true';
 ```
 
-### Connections with sign up disabled
+### Connections with sign-up disabled
 
 ```sql
 select
