@@ -17,7 +17,7 @@ from
   auth0_action
 where
   runtime = 'node12' and
-  all_changes_deployed
+  all_changes_deployed;
 ```
 
 ### Post change password actions
