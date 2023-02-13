@@ -19,7 +19,7 @@ func tableAuth0Role() *plugin.Table {
 			Hydrate: listAuth0Roles,
 		},
 		Get: &plugin.GetConfig{
-			Hydrate:    getAuth0Roles,
+			Hydrate:    getAuth0Role,
 			KeyColumns: plugin.SingleColumn("id"),
 		},
 
@@ -47,7 +47,7 @@ func listAuth0Roles(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateD
 			management.Page(pageNumber),
 		)
 		if err != nil {
-			logger.Error("auth0_role.listAuth0Roles", "list_roles_error", err)
+			logger.Error("auth0_role.listAuth0Roles", "query_error", err)
 			return nil, err
 		}
 		for _, role := range rolesResponse.Roles {
@@ -69,7 +69,7 @@ func listAuth0Roles(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateD
 
 //// GET FUNCTION
 
-func getAuth0Roles(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+func getAuth0Role(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	logger := plugin.Logger(ctx)
 	id := d.EqualsQualString("id")
 
@@ -80,13 +80,13 @@ func getAuth0Roles(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateDa
 
 	client, err := Connect(ctx, d)
 	if err != nil {
-		logger.Error("auth0_role.getAuth0Roles", "connect_error", err)
+		logger.Error("auth0_role.getAuth0Role", "connect_error", err)
 		return nil, err
 	}
 
 	rolesResponse, err := client.Role.Read(id)
 	if err != nil {
-		logger.Error("auth0_role.getAuth0Roles", "get_roles_error", err)
+		logger.Error("auth0_role.getAuth0Role", "query_error", err)
 		return nil, err
 	}
 

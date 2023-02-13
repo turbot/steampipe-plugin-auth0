@@ -19,7 +19,7 @@ func tableAuth0Organization() *plugin.Table {
 			Hydrate: listAuth0Organizations,
 		},
 		Get: &plugin.GetConfig{
-			Hydrate:    getAuth0Organizations,
+			Hydrate:    getAuth0Organization,
 			KeyColumns: plugin.SingleColumn("id"),
 		},
 
@@ -49,7 +49,7 @@ func listAuth0Organizations(ctx context.Context, d *plugin.QueryData, _ *plugin.
 			management.From(nextPage),
 		)
 		if err != nil {
-			logger.Error("auth0_organization.listAuth0Organizations", "list_organizations_error", err)
+			logger.Error("auth0_organization.listAuth0Organizations", "query_error", err)
 			return nil, err
 		}
 		for _, organization := range organizationsResponse.Organizations {
@@ -70,7 +70,7 @@ func listAuth0Organizations(ctx context.Context, d *plugin.QueryData, _ *plugin.
 
 //// GET FUNCTION
 
-func getAuth0Organizations(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+func getAuth0Organization(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	logger := plugin.Logger(ctx)
 	id := d.EqualsQualString("id")
 
@@ -81,13 +81,13 @@ func getAuth0Organizations(ctx context.Context, d *plugin.QueryData, _ *plugin.H
 
 	client, err := Connect(ctx, d)
 	if err != nil {
-		logger.Error("auth0_organization.getAuth0Organizations", "connect_error", err)
+		logger.Error("auth0_organization.getAuth0Organization", "connect_error", err)
 		return nil, err
 	}
 
 	organizationsResponse, err := client.Organization.Read(id)
 	if err != nil {
-		logger.Error("auth0_organization.getAuth0Organizations", "get_organizations_error", err)
+		logger.Error("auth0_organization.getAuth0Organization", "query_error", err)
 		return nil, err
 	}
 

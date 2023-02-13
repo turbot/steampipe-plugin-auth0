@@ -19,7 +19,7 @@ func tableAuth0User() *plugin.Table {
 			Hydrate: listAuth0Users,
 		},
 		Get: &plugin.GetConfig{
-			Hydrate:    getAuth0Users,
+			Hydrate:    getAuth0User,
 			KeyColumns: plugin.SingleColumn("id"),
 		},
 
@@ -74,7 +74,7 @@ func listAuth0Users(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateD
 			management.Page(pageNumber),
 		)
 		if err != nil {
-			logger.Error("auth0_user.listAuth0Users", "list_users_error", err)
+			logger.Error("auth0_user.listAuth0Users", "query_error", err)
 			return nil, err
 		}
 		for _, user := range usersResponse.Users {
@@ -96,7 +96,7 @@ func listAuth0Users(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateD
 
 //// GET FUNCTION
 
-func getAuth0Users(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+func getAuth0User(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	logger := plugin.Logger(ctx)
 	id := d.EqualsQualString("id")
 
@@ -107,13 +107,13 @@ func getAuth0Users(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateDa
 
 	client, err := Connect(ctx, d)
 	if err != nil {
-		logger.Error("auth0_user.getAuth0Users", "connect_error", err)
+		logger.Error("auth0_user.getAuth0User", "connect_error", err)
 		return nil, err
 	}
 
 	usersResponse, err := client.User.Read(id)
 	if err != nil {
-		logger.Error("auth0_user.getAuth0Users", "get_users_error", err)
+		logger.Error("auth0_user.getAuth0User", "query_error", err)
 		return nil, err
 	}
 
@@ -132,7 +132,7 @@ func getBlockedFor(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 	usersResponse, err := client.User.Blocks(*user.ID)
 	logger.Warn("usersResponse", usersResponse)
 	if err != nil {
-		logger.Error("auth0_user.getBlockedFor", "get_users_error", err)
+		logger.Error("auth0_user.getBlockedFor", "query_error", err)
 		return nil, err
 	}
 

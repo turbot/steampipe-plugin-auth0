@@ -19,7 +19,7 @@ func tableAuth0Action() *plugin.Table {
 			Hydrate: listAuth0Actions,
 		},
 		Get: &plugin.GetConfig{
-			Hydrate:    getAuth0Actions,
+			Hydrate:    getAuth0Action,
 			KeyColumns: plugin.SingleColumn("id"),
 		},
 
@@ -57,7 +57,7 @@ func listAuth0Actions(ctx context.Context, d *plugin.QueryData, _ *plugin.Hydrat
 			management.Page(pageNumber),
 		)
 		if err != nil {
-			logger.Error("auth0_action.listAuth0Actions", "list_actions_error", err)
+			logger.Error("auth0_action.listAuth0Actions", "query_error", err)
 			return nil, err
 		}
 		for _, action := range actionsResponse.Actions {
@@ -79,7 +79,7 @@ func listAuth0Actions(ctx context.Context, d *plugin.QueryData, _ *plugin.Hydrat
 
 //// GET FUNCTION
 
-func getAuth0Actions(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+func getAuth0Action(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	logger := plugin.Logger(ctx)
 	id := d.EqualsQualString("id")
 
@@ -90,13 +90,13 @@ func getAuth0Actions(ctx context.Context, d *plugin.QueryData, _ *plugin.Hydrate
 
 	client, err := Connect(ctx, d)
 	if err != nil {
-		logger.Error("auth0_action.getAuth0Actions", "connect_error", err)
+		logger.Error("auth0_action.getAuth0Action", "connect_error", err)
 		return nil, err
 	}
 
 	actionsResponse, err := client.Action.Read(id)
 	if err != nil {
-		logger.Error("auth0_action.getAuth0Actions", "get_actions_error", err)
+		logger.Error("auth0_action.getAuth0Action", "query_error", err)
 		return nil, err
 	}
 

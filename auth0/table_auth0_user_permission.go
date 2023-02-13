@@ -50,7 +50,7 @@ func listAuth0UserPermissions(ctx context.Context, d *plugin.QueryData, _ *plugi
 			management.Page(pageNumber),
 		)
 		if err != nil {
-			logger.Error("auth0_user_permission.listAuth0UserPermissions", "list_user_permissions_error", err)
+			logger.Error("auth0_user_permission.listAuth0UserPermissions", "query_error", err)
 			return nil, err
 		}
 

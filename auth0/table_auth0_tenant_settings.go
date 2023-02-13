@@ -54,7 +54,7 @@ func listAuth0TenantSettings(ctx context.Context, d *plugin.QueryData, _ *plugin
 
 	tenantSettings, err := client.Tenant.Read()
 	if err != nil {
-		logger.Error("auth0_tenant_settings.listAuth0TenantSettings", "list_tenant_settings_error", err)
+		logger.Error("auth0_tenant_settings.listAuth0TenantSettings", "query_error", err)
 		return nil, err
 	}
 	d.StreamListItem(ctx, tenantSettings)

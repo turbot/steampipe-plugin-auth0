@@ -19,7 +19,7 @@ func tableAuth0Log() *plugin.Table {
 			Hydrate: listAuth0Logs,
 		},
 		Get: &plugin.GetConfig{
-			Hydrate:    getAuth0Logs,
+			Hydrate:    getAuth0Log,
 			KeyColumns: plugin.SingleColumn("log_id"),
 		},
 
@@ -66,7 +66,7 @@ func listAuth0Logs(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateDa
 			management.Page(pageNumber),
 		)
 		if err != nil {
-			logger.Error("auth0_log.listAuth0Logs", "list_logs_error", err)
+			logger.Error("auth0_log.listAuth0Logs", "query_error", err)
 			return nil, err
 		}
 		for _, log := range logsResponse {
@@ -87,7 +87,7 @@ func listAuth0Logs(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateDa
 
 //// GET FUNCTION
 
-func getAuth0Logs(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+func getAuth0Log(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	logger := plugin.Logger(ctx)
 	id := d.EqualsQualString("log_id")
 
@@ -98,13 +98,13 @@ func getAuth0Logs(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateDat
 
 	client, err := Connect(ctx, d)
 	if err != nil {
-		logger.Error("auth0_log.getAuth0Logs", "connect_error", err)
+		logger.Error("auth0_log.getAuth0Log", "connect_error", err)
 		return nil, err
 	}
 
 	logsResponse, err := client.Log.Read(id)
 	if err != nil {
-		logger.Error("auth0_log.getAuth0Logs", "get_logs_error", err)
+		logger.Error("auth0_log.getAuth0Log", "query_error", err)
 		return nil, err
 	}
 

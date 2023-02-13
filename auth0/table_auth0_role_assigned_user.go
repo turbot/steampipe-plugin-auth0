@@ -49,7 +49,7 @@ func listAuth0RoleAssignedUsers(ctx context.Context, d *plugin.QueryData, _ *plu
 			management.Page(pageNumber),
 		)
 		if err != nil {
-			logger.Error("auth0_role_assigned_user.listAuth0RoleAssignedUsers", "list_role_assigned_users_error", err)
+			logger.Error("auth0_role_assigned_user.listAuth0RoleAssignedUsers", "query_error", err)
 			return nil, err
 		}
 

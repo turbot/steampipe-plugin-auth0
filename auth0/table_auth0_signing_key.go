@@ -18,7 +18,7 @@ func tableAuth0SigningKey() *plugin.Table {
 			Hydrate: listAuth0SigningKeys,
 		},
 		Get: &plugin.GetConfig{
-			Hydrate:    getAuth0SigningKeys,
+			Hydrate:    getAuth0SigningKey,
 			KeyColumns: plugin.SingleColumn("kid"),
 		},
 
@@ -51,7 +51,7 @@ func listAuth0SigningKeys(ctx context.Context, d *plugin.QueryData, _ *plugin.Hy
 
 	signingKeysResponse, err := client.SigningKey.List()
 	if err != nil {
-		logger.Error("auth0_signing_key.listAuth0SigningKeys", "list_signing_keys_error", err)
+		logger.Error("auth0_signing_key.listAuth0SigningKeys", "query_error", err)
 		return nil, err
 	}
 	for _, signingKey := range signingKeysResponse {
@@ -66,7 +66,7 @@ func listAuth0SigningKeys(ctx context.Context, d *plugin.QueryData, _ *plugin.Hy
 
 //// GET FUNCTION
 
-func getAuth0SigningKeys(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+func getAuth0SigningKey(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	logger := plugin.Logger(ctx)
 	id := d.EqualsQualString("kid")
 
@@ -77,13 +77,13 @@ func getAuth0SigningKeys(ctx context.Context, d *plugin.QueryData, _ *plugin.Hyd
 
 	client, err := Connect(ctx, d)
 	if err != nil {
-		logger.Error("auth0_signing_key.getAuth0SigningKeys", "connect_error", err)
+		logger.Error("auth0_signing_key.getAuth0SigningKey", "connect_error", err)
 		return nil, err
 	}
 
 	logsResponse, err := client.SigningKey.Read(id)
 	if err != nil {
-		logger.Error("auth0_signing_key.getAuth0SigningKeys", "get_signing_keys_error", err)
+		logger.Error("auth0_signing_key.getAuth0SigningKey", "query_error", err)
 		return nil, err
 	}
 

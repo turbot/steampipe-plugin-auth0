@@ -66,7 +66,7 @@ func listAuth0StatsDaily(ctx context.Context, d *plugin.QueryData, _ *plugin.Hyd
 
 	stats, err := client.Stat.Daily(opts...)
 	if err != nil {
-		logger.Error("auth0_stats_daily.listAuth0StatsDaily", "list_stats_daily_error", err)
+		logger.Error("auth0_stats_daily.listAuth0StatsDaily", "query_error", err)
 		return nil, err
 	}
 	for _, stat := range stats {

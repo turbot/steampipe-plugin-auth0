@@ -19,7 +19,7 @@ func tableAuth0Connection() *plugin.Table {
 			Hydrate: listAuth0Connections,
 		},
 		Get: &plugin.GetConfig{
-			Hydrate:    getAuth0Connections,
+			Hydrate:    getAuth0Connection,
 			KeyColumns: plugin.SingleColumn("id"),
 		},
 
@@ -55,7 +55,7 @@ func listAuth0Connections(ctx context.Context, d *plugin.QueryData, _ *plugin.Hy
 			management.Page(pageNumber),
 		)
 		if err != nil {
-			logger.Error("auth0_connection.listAuth0Connections", "list_connections_error", err)
+			logger.Error("auth0_connection.listAuth0Connections", "query_error", err)
 			return nil, err
 		}
 		for _, connection := range connectionsResponse.Connections {
@@ -77,7 +77,7 @@ func listAuth0Connections(ctx context.Context, d *plugin.QueryData, _ *plugin.Hy
 
 //// GET FUNCTION
 
-func getAuth0Connections(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+func getAuth0Connection(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	logger := plugin.Logger(ctx)
 	id := d.EqualsQualString("id")
 
@@ -88,13 +88,13 @@ func getAuth0Connections(ctx context.Context, d *plugin.QueryData, _ *plugin.Hyd
 
 	client, err := Connect(ctx, d)
 	if err != nil {
-		logger.Error("auth0_connection.getAuth0Connections", "connect_error", err)
+		logger.Error("auth0_connection.getAuth0Connection", "connect_error", err)
 		return nil, err
 	}
 
 	connectionsResponse, err := client.Connection.Read(id)
 	if err != nil {
-		logger.Error("auth0_connection.getAuth0Connections", "get_connections_error", err)
+		logger.Error("auth0_connection.getAuth0Connection", "query_error", err)
 		return nil, err
 	}
 

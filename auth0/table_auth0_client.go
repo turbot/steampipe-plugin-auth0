@@ -19,7 +19,7 @@ func tableAuth0Client() *plugin.Table {
 			Hydrate: listAuth0Clients,
 		},
 		Get: &plugin.GetConfig{
-			Hydrate:    getAuth0Clients,
+			Hydrate:    getAuth0Client,
 			KeyColumns: plugin.SingleColumn("client_id"),
 		},
 
@@ -80,7 +80,7 @@ func listAuth0Clients(ctx context.Context, d *plugin.QueryData, _ *plugin.Hydrat
 			management.Page(pageNumber),
 		)
 		if err != nil {
-			logger.Error("auth0_client.listAuth0Clients", "list_clients_error", err)
+			logger.Error("auth0_client.listAuth0Clients", "query_error", err)
 			return nil, err
 		}
 		for _, client := range clientsResponse.Clients {
@@ -103,7 +103,7 @@ func listAuth0Clients(ctx context.Context, d *plugin.QueryData, _ *plugin.Hydrat
 
 //// GET FUNCTION
 
-func getAuth0Clients(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+func getAuth0Client(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	logger := plugin.Logger(ctx)
 	clientId := d.EqualsQualString("client_id")
 
@@ -114,13 +114,13 @@ func getAuth0Clients(ctx context.Context, d *plugin.QueryData, _ *plugin.Hydrate
 
 	client, err := Connect(ctx, d)
 	if err != nil {
-		logger.Error("auth0_client.getAuth0Clients", "connect_error", err)
+		logger.Error("auth0_client.getAuth0Client", "connect_error", err)
 		return nil, err
 	}
 
 	clientsResponse, err := client.Client.Read(clientId)
 	if err != nil {
-		logger.Error("auth0_client.getAuth0Clients", "get_clients_error", err)
+		logger.Error("auth0_client.getAuth0Client", "query_error", err)
 		return nil, err
 	}
 
