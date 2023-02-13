@@ -3,8 +3,6 @@
 Connection is the relationship between Auth0 and a source of users.
 
 ## Examples
-
-
 ### Connections with MFA enabled
 
 ```sql
