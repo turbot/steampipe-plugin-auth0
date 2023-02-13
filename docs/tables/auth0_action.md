@@ -41,7 +41,7 @@ select
 from
   auth0_action
 where
-  name = 'send-notification'
+  name = 'send-notification';
 ```
 
 ### Deployed actions
