@@ -29,7 +29,7 @@ func tableAuth0Action() *plugin.Table {
 			{Name: "supported_triggers", Description: "List of triggers that this action supports. At this time, an action can only target a single trigger at a time.", Type: proto.ColumnType_JSON},
 			{Name: "code", Description: "The source code of the action.", Type: proto.ColumnType_STRING},
 			{Name: "dependencies", Description: "List of third party npm modules, and their versions, that this action depends on.", Type: proto.ColumnType_JSON},
-			{Name: "runtime", Description: "The Node runtime. For example `node16`, defaults to `node12`", Type: proto.ColumnType_STRING},
+			{Name: "runtime", Description: "The Node runtime. For example `node16`, defaults to `node12`.", Type: proto.ColumnType_STRING},
 			{Name: "secrets", Description: "List of secrets that are included in an action or a version of an action.", Type: proto.ColumnType_JSON},
 			{Name: "deployed_version", Description: "Version of the action that is currently deployed.", Type: proto.ColumnType_JSON},
 			{Name: "status", Description: "The build status of this action.", Type: proto.ColumnType_STRING},
