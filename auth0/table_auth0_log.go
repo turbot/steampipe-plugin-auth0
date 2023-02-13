@@ -45,7 +45,7 @@ func tableAuth0Log() *plugin.Table {
 			{Name: "strategy", Description: "Name of the strategy involved in the event.", Type: proto.ColumnType_STRING},
 			{Name: "strategy_type", Description: "Type of strategy involved in the event.", Type: proto.ColumnType_STRING},
 			{Name: "is_mobile", Description: "Whether the client was a mobile device (true) or desktop/laptop/server (false).", Type: proto.ColumnType_BOOL},
-			{Name: "location_info", Description: "Information about the location that triggered this event based on the `ip`.", Type: proto.ColumnType_JSON},
+			{Name: "location_info", Description: "Information about the location that triggered this event based on the `IP`.", Type: proto.ColumnType_JSON},
 		},
 	}
 }
