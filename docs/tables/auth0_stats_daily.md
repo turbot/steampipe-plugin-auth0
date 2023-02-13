@@ -4,7 +4,7 @@ Daily stats for an Auth0 Tenant.
 
 ## Examples
 
-### Top 5 days with highest number of sign ups
+### Top 5 days with the highest number of sign-ups
 
 ```sql
 select
