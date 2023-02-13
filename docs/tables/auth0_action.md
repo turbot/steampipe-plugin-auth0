@@ -4,7 +4,6 @@ Actions are secure, tenant-specific, versioned functions written in Node.js that
 
 ## Examples
 
-
 ### Deprecated NodeJS 12 based code deployed 
 
 ```sql
