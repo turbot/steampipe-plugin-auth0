@@ -14,7 +14,7 @@ import (
 func tableAuth0Client() *plugin.Table {
 	return &plugin.Table{
 		Name:        "auth0_client",
-		Description: "Client is an application or a sso integration.",
+		Description: "Client is an application or an SSO integration.",
 		List: &plugin.ListConfig{
 			Hydrate: listAuth0Clients,
 		},
