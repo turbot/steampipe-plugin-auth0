@@ -32,7 +32,7 @@ select
 from
   auth0_log
 where
-   client_id = 'FrSZDDFGUH0afar5LHmCji1khmPmst6R'
+  client_id = 'FrSZDDFGUH0afar5LHmCji1khmPmst6R'
 order by
   date desc;
 ```
@@ -53,7 +53,7 @@ order by
   date desc;
 ```
 
-### Amount of mobile and non-mobile successful logins
+### Number of mobile and non-mobile successful logins
 
 ```sql
 select

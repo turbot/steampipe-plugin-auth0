@@ -1,10 +1,10 @@
 # Table: auth0_action
 
-Actions are secure, tenant-specific, versioned functions written in Node.js that execute at certain points within the Auth0 platform.
+Actions are secure, tenant-specific, versioned functions written in Node.js that are executed at certain points of time within the Auth0 platform.
 
 ## Examples
 
-### Deprecated NodeJS 12 based code deployed 
+### Deprecated NodeJS 12 based code deployed
 
 ```sql
 select
@@ -15,11 +15,11 @@ select
 from
   auth0_action
 where
-  runtime = 'node12' and
-  all_changes_deployed;
+  runtime = 'node12'
+  and all_changes_deployed;
 ```
 
-### Post change password actions
+### Actions triggered post a password change
 
 ```sql
 select

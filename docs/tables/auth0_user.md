@@ -30,7 +30,7 @@ where
   not email_verified;
 ```
 
-### Ranking of most used auth connections
+### Ranking of highly used auth0 connections
 
 ```sql
 select

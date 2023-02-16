@@ -1,10 +1,10 @@
 # Table: auth0_user_permission
 
-Permissions assigned to user, including permissions assigned through users roles.
+Permissions assigned to user, including permissions assigned through user roles.
 
 ## Examples
 
-### All user granted permissions
+### All permissions granted by a user
 
 ```sql
 select
@@ -13,10 +13,9 @@ select
   p.resource_server_name
 from
   auth0_user u
-join
-  auth0_user_permission p
-on
-  p.user_id = u.id
+  join
+    auth0_user_permission p
+    on p.user_id = u.id
 where
   email = 'select-joey@mail.com'
 order by
@@ -33,11 +32,10 @@ select
   p.description
 from
   auth0_user u
-join
-  auth0_user_permission p
-on
-  p.user_id = u.id
+  join
+    auth0_user_permission p
+    on p.user_id = u.id
 where
-  u.email = 'select-joey@mail.com' and
-  p.resource_server_name = 'novel-mutt';
+  u.email = 'select-joey@mail.com'
+  and p.resource_server_name = 'novel-mutt';
 ```

@@ -1,6 +1,6 @@
 # Table: auth0_stats_daily
 
-Daily stats for an Auth0 Tenant.
+Daily stats of an Auth0 Tenant.
 
 ## Examples
 
@@ -13,8 +13,7 @@ select
 from
   auth0_stats_daily
 order by
-  sign_ups desc
-limit 5;
+  sign_ups desc limit 5;
 ```
 
 ### Last 12 months average number of logins
@@ -28,7 +27,7 @@ where
   date > current_date - interval '12' month;
 ```
 
-### Days there were leaked passwords
+### Days when the passwords were leaked
 
 ```sql
 select

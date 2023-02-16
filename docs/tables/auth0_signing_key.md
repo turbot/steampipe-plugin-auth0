@@ -69,4 +69,3 @@ where
 order by
   revoked_at desc;
 ```
-

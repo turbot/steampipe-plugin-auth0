@@ -13,13 +13,12 @@ select
   u.updated_at
 from
   auth0_user u
-join
-  auth0_user_assigned_role r
-on
-  r.user_id = u.id
+  join
+    auth0_user_assigned_role r
+    on r.user_id = u.id
 where
-  r.name = 'admin' and
-  u.multifactor is null;
+  r.name = 'admin'
+  and u.multifactor is null;
 ```
 
 ### Roles a user is assigned to
@@ -31,10 +30,9 @@ select
   r.description
 from
   auth0_user u
-join
-  auth0_user_assigned_role r
-on
-  r.user_id = u.id
+  join
+    auth0_user_assigned_role r
+    on r.user_id = u.id
 where
   email = 'select-joey@mail.com';
 ```

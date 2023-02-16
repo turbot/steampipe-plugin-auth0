@@ -3,6 +3,7 @@
 Connection is the relationship between Auth0 and a source of users.
 
 ## Examples
+
 ### Connections with MFA enabled
 
 ```sql
@@ -71,7 +72,7 @@ where
   strategy = 'auth0';
 ```
 
-### Ensure connection password policy requires minimum length of 14 or greater 
+### Ensure connection's password policy requires a minimum length of 14 or greater
 
 ```sql
 select

@@ -3,7 +3,8 @@
 Client is an application or a sso integration.
 
 ## Examples
-### Amount of clients by type
+
+### Number of clients by type
 
 ```sql
 select

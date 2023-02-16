@@ -1,10 +1,10 @@
 # Table: auth0_role_permission
 
-Permissions assigned to role.
+Permissions assigned to a role.
 
 ## Examples
 
-### All the permissions assigned to a role
+### List all the permissions assigned to a role
 
 ```sql
 select
@@ -27,10 +27,9 @@ select
   r.name
 from
   auth0_role r
-join
-  auth0_role_permission p
-on
-  p.role_id = r.id
+  join
+    auth0_role_permission p
+    on p.role_id = r.id
 where
   p.resource_server_name = 'novel-mutt'
 group by

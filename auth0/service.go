@@ -24,26 +24,22 @@ func connectUncached(ctx context.Context, d *plugin.QueryData, _ *plugin.Hydrate
 
 	var domain, clientId, clientSecret, apiToken string
 
+	domain = os.Getenv("AUTH0_DOMAIN")
 	if auth0Config.Domain != nil {
 		domain = *auth0Config.Domain
-	} else {
-		domain = os.Getenv("AUTH0_DOMAIN")
-	}
+	} 
+	clientId = os.Getenv("AUTH0_CLIENT_ID")
 	if auth0Config.ClientId != nil {
 		clientId = *auth0Config.ClientId
-	} else {
-		clientId = os.Getenv("AUTH0_CLIENT_ID")
-	}
+	} 
+	clientSecret = os.Getenv("AUTH0_CLIENT_SECRET")
 	if auth0Config.ClientSecret != nil {
 		clientSecret = *auth0Config.ClientSecret
-	} else {
-		clientSecret = os.Getenv("AUTH0_CLIENT_SECRET")
-	}
+	} 
+	apiToken = os.Getenv("AUTH0_API_TOKEN")
 	if auth0Config.ApiToken != nil {
 		apiToken = *auth0Config.ApiToken
-	} else {
-		apiToken = os.Getenv("AUTH0_API_TOKEN")
-	}
+	} 
 
 	// No creds
 	if domain == "" {

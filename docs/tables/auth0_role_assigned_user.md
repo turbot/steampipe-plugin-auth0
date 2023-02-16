@@ -13,10 +13,9 @@ select
   u.user_id
 from
   auth0_role r
-join
-  auth0_role_assigned_user u
-on
-  u.role_id = r.id
+  join
+    auth0_role_assigned_user u
+    on u.role_id = r.id
 where
   r.name = 'operator'
 order by
@@ -32,15 +31,13 @@ select
   u.updated_at
 from
   auth0_role r
-join
-  auth0_role_assigned_user ru
-on
-  ru.role_id = r.id
-join
-  auth0_user u
-on
-  u.id = ru.user_id
+  join
+    auth0_role_assigned_user ru
+    on ru.role_id = r.id
+  join
+    auth0_user u
+    on u.id = ru.user_id
 where
-  r.name = 'admin' and
-  not u.email_verified;
+  r.name = 'admin'
+  and not u.email_verified;
 ```

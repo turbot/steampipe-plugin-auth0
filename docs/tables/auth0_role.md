@@ -14,16 +14,15 @@ select
   p.resource_server_name
 from
   auth0_role r
-join
-  auth0_role_permission p
-on
-  p.role_id = r.id
+  join
+    auth0_role_permission p
+    on p.role_id = r.id
 where
-  r.name <> 'admin' and
-  p.permission_name like 'all:%';
+  r.name <> 'admin'
+  and p.permission_name like 'all:%';
 ```
 
-### List all permissions assigned to admin role
+### List all permissions assigned to an admin role
 
 ```sql
 select
@@ -32,11 +31,9 @@ select
   p.resource_server_name
 from
   auth0_role r
-join
-  auth0_role_permission p
-on
-  p.role_id = r.id
+  join
+    auth0_role_permission p
+    on p.role_id = r.id
 where
   r.name = 'admin';
 ```
-
