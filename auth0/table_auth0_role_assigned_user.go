@@ -40,8 +40,17 @@ func listAuth0RoleAssignedUsers(ctx context.Context, d *plugin.QueryData, _ *plu
 
 	roleId := d.EqualsQualString("role_id")
 
-	var pageNumber, perPage int
-	perPage = 50
+	perPage := 50
+	// Limit indicates the number of records to return at once.
+	// If the query limit is less than the API limit, then make API call limit to match query limit.
+	limit := d.QueryContext.Limit
+	if limit != nil {
+		if *limit < int64(perPage) {
+			perPage = int(*limit)
+		}
+	}
+
+	var pageNumber int
 	for {
 		usersResponse, err := client.Role.Users(
 			roleId,

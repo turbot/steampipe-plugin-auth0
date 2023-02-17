@@ -60,10 +60,21 @@ func listAuth0Logs(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateDa
 		return nil, err
 	}
 
+	perPage := 50
+	// Limit indicates the number of records to return at once.
+	// If the query limit is less than the API limit, then make API call limit to match query limit.
+	limit := d.QueryContext.Limit
+	if limit != nil {
+		if *limit < int64(perPage) {
+			perPage = int(*limit)
+		}
+	}
+
 	var pageNumber int
 	for {
 		logsResponse, err := client.Log.List(
 			management.Page(pageNumber),
+			management.PerPage(perPage),
 		)
 		if err != nil {
 			logger.Error("auth0_log.listAuth0Logs", "query_error", err)

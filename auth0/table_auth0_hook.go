@@ -44,10 +44,21 @@ func listAuth0Hooks(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateD
 		return nil, err
 	}
 
+	perPage := 50
+	// Limit indicates the number of records to return at once.
+	// If the query limit is less than the API limit, then make API call limit to match query limit.
+	limit := d.QueryContext.Limit
+	if limit != nil {
+		if *limit < int64(perPage) {
+			perPage = int(*limit)
+		}
+	}
+
 	var pageNumber int
 	for {
 		hooksResponse, err := client.Hook.List(
 			management.Page(pageNumber),
+			management.PerPage(perPage),
 		)
 		if err != nil {
 			logger.Error("auth0_hook.listAuth0Hooks", "query_error", err)
