@@ -1,3 +1,9 @@
+## v0.0.2 [2023-02-25]
+
+_Bug fixes_
+
+- Fixed the brand color. ([#5](https://github.com/turbot/steampipe-plugin-auth/pull/5))
+
 ## v0.0.1 [2023-02-17]
 
 _What's new?_
