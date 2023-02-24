@@ -2,7 +2,7 @@
 organization: Turbot
 category: ["saas"]
 icon_url: "/images/plugins/turbot/auth0.svg"
-brand_color: "#000000"
+brand_color: "#635DFF"
 display_name: "Auth0"
 name: "auth0"
 description: "Use SQL to query users, clients, connections, keys and more from Auth0."
