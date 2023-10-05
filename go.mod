@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/auth0/go-auth0 v0.14.0
-	github.com/turbot/steampipe-plugin-sdk/v5 v5.6.1
+	github.com/turbot/steampipe-plugin-sdk/v5 v5.6.2
 )
 
 require (
