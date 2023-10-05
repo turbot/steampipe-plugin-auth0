@@ -1,3 +1,9 @@
+## v0.2.1 [2023-10-05]
+
+_Dependencies_
+
+- Recompiled plugin with [steampipe-plugin-sdk v5.6.2](https://github.com/turbot/steampipe-plugin-sdk/blob/main/CHANGELOG.md#v562-2023-10-03) which prevents nil pointer reference errors for implicit hydrate configs. ([#16](https://github.com/turbot/steampipe-plugin-auth0/pull/16))
+
 ## v0.2.0 [2023-10-02]
 
 _Dependencies_
@@ -9,13 +15,13 @@ _Dependencies_
 
 _Dependencies_
 
-- Recompiled plugin with [steampipe-plugin-sdk v5.3.0](https://github.com/turbot/steampipe-plugin-sdk/blob/main/CHANGELOG.md#v530-2023-03-16) which adds go-getter support to dynamic tables. ([#7](https://github.com/turbot/steampipe-plugin-auth/pull/7))
+- Recompiled plugin with [steampipe-plugin-sdk v5.3.0](https://github.com/turbot/steampipe-plugin-sdk/blob/main/CHANGELOG.md#v530-2023-03-16) which adds go-getter support to dynamic tables. ([#7](https://github.com/turbot/steampipe-plugin-auth0/pull/7))
 
 ## v0.0.2 [2023-02-25]
 
 _Bug fixes_
 
-- Fixed the brand color. ([#5](https://github.com/turbot/steampipe-plugin-auth/pull/5))
+- Fixed the brand color. ([#5](https://github.com/turbot/steampipe-plugin-auth0/pull/5))
 
 ## v0.0.1 [2023-02-17]
 
