@@ -16,7 +16,23 @@ The `auth0_role_assigned_user` table provides insights into users assigned to ro
 ### List users assigned to a role
 Explore which users have been assigned the 'operator' role in your Auth0 system. This can be useful to maintain security and manage user permissions effectively.
 
-```sql
+```sql+postgres
+select
+  u.name,
+  u.email,
+  u.user_id
+from
+  auth0_role r
+  join
+    auth0_role_assigned_user u
+    on u.role_id = r.id
+where
+  r.name = 'operator'
+order by
+  u.name;
+```
+
+```sql+sqlite
 select
   u.name,
   u.email,
@@ -35,7 +51,7 @@ order by
 ### Admin users with unverified email
 Explore which administrative users have not yet verified their emails. This is useful in ensuring all admins have completed necessary verification steps for security purposes.
 
-```sql
+```sql+postgres
 select
   u.email,
   u.id,
@@ -51,4 +67,22 @@ from
 where
   r.name = 'admin'
   and not u.email_verified;
+```
+
+```sql+sqlite
+select
+  u.email,
+  u.id,
+  u.updated_at
+from
+  auth0_role r
+  join
+    auth0_role_assigned_user ru
+    on ru.role_id = r.id
+  join
+    auth0_user u
+    on u.id = ru.user_id
+where
+  r.name = 'admin'
+  and u.email_verified = 0;
 ```

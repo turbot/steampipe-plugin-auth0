@@ -16,7 +16,22 @@ The `auth0_user_assigned_role` table provides insights into user roles within Au
 ### Admin users without MFA
 Explore which admin users have not enabled multi-factor authentication. This could be useful for identifying potential security vulnerabilities within your system.
 
-```sql
+```sql+postgres
+select
+  u.email,
+  u.id,
+  u.updated_at
+from
+  auth0_user u
+  join
+    auth0_user_assigned_role r
+    on r.user_id = u.id
+where
+  r.name = 'admin'
+  and u.multifactor is null;
+```
+
+```sql+sqlite
 select
   u.email,
   u.id,
@@ -34,7 +49,21 @@ where
 ### Roles a user is assigned to
 Uncover the details of different roles assigned to a specific user in the system, which is crucial for managing user permissions and access control. This can be used to ensure that users have the appropriate roles for their needs and to prevent unauthorized access to certain areas of the system.
 
-```sql
+```sql+postgres
+select
+  r.role_id,
+  r.name,
+  r.description
+from
+  auth0_user u
+  join
+    auth0_user_assigned_role r
+    on r.user_id = u.id
+where
+  email = 'select-joey@mail.com';
+```
+
+```sql+sqlite
 select
   r.role_id,
   r.name,

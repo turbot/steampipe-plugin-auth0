@@ -16,7 +16,7 @@ The `auth0_tenant_settings` table provides insights into tenant settings within 
 ### SSO settings
 Analyze the settings to understand if Single Sign-On (SSO) is enabled and if changes to these settings are permitted, helping to ensure secure access management.
 
-```sql
+```sql+postgres
 select
   flags ->> 'enable_sso' as enable_sso,
   flags ->> 'allow_changing_enable_sso' as allow_changing_enable_sso
@@ -24,10 +24,18 @@ from
   auth0_tenant_settings;
 ```
 
+```sql+sqlite
+select
+  json_extract(flags, '$.enable_sso') as enable_sso,
+  json_extract(flags, '$.allow_changing_enable_sso') as allow_changing_enable_sso
+from
+  auth0_tenant_settings;
+```
+
 ### Enabled locales
 Explore which locales have been enabled in your Auth0 tenant settings. This can help in understanding the geographical distribution of your user base.
 
-```sql
+```sql+postgres
 select
   l as enabled_locales
 from
@@ -35,10 +43,26 @@ from
   jsonb_array_elements(t.enabled_locales) l;
 ```
 
+```sql+sqlite
+select
+  l.value as enabled_locales
+from
+  auth0_tenant_settings t,
+  json_each(t.enabled_locales) l;
+```
+
 ### Session and idle session lifetime settings
 Analyze the settings to understand the duration of active and idle sessions within your Auth0 tenant. This can help optimize user experience by managing session lengths and idle times.
 
-```sql
+```sql+postgres
+select
+  session_lifetime,
+  idle_session_lifetime
+from
+  auth0_tenant_settings;
+```
+
+```sql+sqlite
 select
   session_lifetime,
   idle_session_lifetime

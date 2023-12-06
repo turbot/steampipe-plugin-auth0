@@ -16,9 +16,18 @@ The `auth0_signing_key` table offers valuable insights into the signing keys wit
 ### For how long has current signing key been available
 Explore the duration for which the current signing key has been active. This can help in identifying potential security risks and maintaining good practices by regularly updating keys.
 
-```sql
+```sql+postgres
 select
   current_date - current_since as current_for
+from
+  auth0_signing_key
+where
+  current;
+```
+
+```sql+sqlite
+select
+  julianday('now') - julianday(current_since) as current_for
 from
   auth0_signing_key
 where
@@ -28,7 +37,18 @@ where
 ### Next signing key
 Determine the upcoming signing key in your Auth0 environment to ensure smooth transitions of authentication processes and avoid unexpected service disruptions.
 
-```sql
+```sql+postgres
+select
+  kid,
+  fingerprint,
+  thumbprint
+from
+  auth0_signing_key
+where
+  next;
+```
+
+```sql+sqlite
 select
   kid,
   fingerprint,
@@ -42,7 +62,7 @@ where
 ### Previous signing key
 Explore the history of signing keys to understand when a particular key was in use. This can be beneficial for auditing purposes or to trace back any security-related issues.
 
-```sql
+```sql+postgres
 select
   kid,
   fingerprint,
@@ -55,12 +75,34 @@ where
   previous;
 ```
 
+```sql+sqlite
+select
+  kid,
+  fingerprint,
+  thumbprint,
+  current_since,
+  current_until
+from
+  auth0_signing_key
+where
+  previous = 1;
+```
+
 ### Average time for which the previous signing keys were available
 Determine the average duration for which previous authentication keys were available. This is useful for understanding the typical lifespan of keys, aiding in planning for key rotation schedules.
 
-```sql
+```sql+postgres
 select
   avg(current_until - current_since) as average_duration
+from
+  auth0_signing_key
+where
+  previous;
+```
+
+```sql+sqlite
+select
+  avg(julianday(current_until) - julianday(current_since)) as average_duration
 from
   auth0_signing_key
 where
@@ -70,7 +112,21 @@ where
 ### Revoked signing keys
 Assess the elements within your Auth0 system to identify and prioritize revoked signing keys. This allows you to maintain system integrity by focusing on keys that have been revoked, especially useful in high-security environments.
 
-```sql
+```sql+postgres
+select
+  kid,
+  fingerprint,
+  thumbprint,
+  revoked_at
+from
+  auth0_signing_key
+where
+  revoked
+order by
+  revoked_at desc;
+```
+
+```sql+sqlite
 select
   kid,
   fingerprint,

@@ -16,7 +16,21 @@ The `auth0_role_permission` table provides insights into role permissions within
 ### List all the permissions assigned to a role
 Discover the segments that have been granted specific permissions within a designated role. This is particularly useful in managing user access and ensuring appropriate security measures are in place.
 
-```sql
+```sql+postgres
+select
+  permission_name,
+  description,
+  resource_server_name
+from
+  auth0_role_permission
+where
+  role_id = 'rol_VkaG05dncCpNN3oI'
+order by
+  resource_server_name,
+  permission_name;
+```
+
+```sql+sqlite
 select
   permission_name,
   description,
@@ -33,7 +47,23 @@ order by
 ### List roles with assigned permission of a resource server
 Determine the areas in which specific roles are assigned permissions within a particular resource server. This can be useful for managing access control and ensuring appropriate permissions are allocated.
 
-```sql
+```sql+postgres
+select
+  r.name
+from
+  auth0_role r
+  join
+    auth0_role_permission p
+    on p.role_id = r.id
+where
+  p.resource_server_name = 'novel-mutt'
+group by
+  r.name
+order by
+  r.name;
+```
+
+```sql+sqlite
 select
   r.name
 from

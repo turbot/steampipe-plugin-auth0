@@ -16,7 +16,24 @@ The `auth0_user_permission` table provides insights into user permissions within
 ### All permissions granted by a user
 Explore the range of permissions granted by a specific user to understand their level of access and control within the system. This can be useful for auditing user privileges and ensuring appropriate access levels.
 
-```sql
+```sql+postgres
+select
+  p.permission_name,
+  p.description,
+  p.resource_server_name
+from
+  auth0_user u
+  join
+    auth0_user_permission p
+    on p.user_id = u.id
+where
+  email = 'select-joey@mail.com'
+order by
+  p.resource_server_name,
+  p.permission_name;
+```
+
+```sql+sqlite
 select
   p.permission_name,
   p.description,
@@ -36,7 +53,22 @@ order by
 ### User granted permissions in a resource server
 Explore which permissions have been granted to a specific user within a particular resource server. This is useful for managing user access rights and ensuring appropriate permissions are assigned.
 
-```sql
+```sql+postgres
+select
+  u.email,
+  p.permission_name,
+  p.description
+from
+  auth0_user u
+  join
+    auth0_user_permission p
+    on p.user_id = u.id
+where
+  u.email = 'select-joey@mail.com'
+  and p.resource_server_name = 'novel-mutt';
+```
+
+```sql+sqlite
 select
   u.email,
   p.permission_name,

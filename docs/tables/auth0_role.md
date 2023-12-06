@@ -16,7 +16,23 @@ The `auth0_role` table provides insights into roles within Auth0. As a Security 
 ### Non-admin roles with 'all:*' permissions
 Determine the roles, excluding the 'admin', that have been granted all permissions. This allows for a review of potential security vulnerabilities by identifying roles with overly broad access rights.
 
-```sql
+```sql+postgres
+select
+  r.name as role_name,
+  p.permission_name,
+  p.description,
+  p.resource_server_name
+from
+  auth0_role r
+  join
+    auth0_role_permission p
+    on p.role_id = r.id
+where
+  r.name <> 'admin'
+  and p.permission_name like 'all:%';
+```
+
+```sql+sqlite
 select
   r.name as role_name,
   p.permission_name,
@@ -35,7 +51,21 @@ where
 ### List all permissions assigned to an admin role
 Explore which permissions are associated with an administrative role to better understand the access rights and potential security implications. This can be useful when auditing system access or planning role changes.
 
-```sql
+```sql+postgres
+select
+  p.permission_name,
+  p.description,
+  p.resource_server_name
+from
+  auth0_role r
+  join
+    auth0_role_permission p
+    on p.role_id = r.id
+where
+  r.name = 'admin';
+```
+
+```sql+sqlite
 select
   p.permission_name,
   p.description,

@@ -16,7 +16,17 @@ The `auth0_stats_daily` table provides insights into daily statistics within Aut
 ### Top 5 days with the highest number of sign-ups
 Discover the dates that had the most user sign-ups, which can be useful for identifying trends or the impact of specific marketing campaigns.
 
-```sql
+```sql+postgres
+select
+  sign_ups,
+  date
+from
+  auth0_stats_daily
+order by
+  sign_ups desc limit 5;
+```
+
+```sql+sqlite
 select
   sign_ups,
   date
@@ -29,7 +39,7 @@ order by
 ### Last 12 months average number of logins
 Explore the average frequency of user logins over the past year to understand user engagement and activity trends. This can help in identifying patterns and informing strategies for user retention and engagement.
 
-```sql
+```sql+postgres
 select
   avg(logins) as average_logins
 from
@@ -38,10 +48,31 @@ where
   date > current_date - interval '12' month;
 ```
 
+```sql+sqlite
+select
+  avg(logins) as average_logins
+from
+  auth0_stats_daily
+where
+  date > date('now','-12 month');
+```
+
 ### Days when the passwords were leaked
 Identify instances where passwords have been compromised, allowing you to understand the severity and frequency of such security incidents.
 
-```sql
+```sql+postgres
+select
+  leaked_passwords,
+  date
+from
+  auth0_stats_daily
+where
+  leaked_passwords != 0
+order by
+  leaked_passwords desc;
+```
+
+```sql+sqlite
 select
   leaked_passwords,
   date

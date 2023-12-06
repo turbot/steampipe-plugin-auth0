@@ -16,7 +16,17 @@ The `auth0_client` table provides insights into the clients within Auth0. As a D
 ### Number of clients by type
 Determine the distribution of client types within your application ecosystem. This can provide insights into the variety and prevalence of different client types, aiding in strategic decision-making and resource allocation.
 
-```sql
+```sql+postgres
+select
+  app_type,
+  count(1)
+from
+  auth0_client
+group by
+  app_type;
+```
+
+```sql+sqlite
 select
   app_type,
   count(1)
@@ -29,7 +39,7 @@ group by
 ### Token lifetime
 Assess the elements within your Auth0 clients to understand the lifespan of their tokens. This can be useful to manage session durations and enhance security by determining the idle and active lifetimes of tokens.
 
-```sql
+```sql+postgres
 select
   client_id,
   name,
@@ -41,15 +51,37 @@ order by
   name;
 ```
 
+```sql+sqlite
+select
+  client_id,
+  name,
+  json_extract(refresh_token, '$.token_lifetime') as token_lifetime,
+  json_extract(refresh_token, '$.idle_token_lifetime') as idle_token_lifetime
+from
+  auth0_client
+order by
+  name;
+```
+
 ### Grant types of a client
 Analyze the types of authorizations granted to a specific client in the Auth0 platform. This can be useful for assessing security settings and understanding the level of access a client has.
 
-```sql
+```sql+postgres
 select
   g as grant_types
 from
   auth0_client c,
   jsonb_array_elements(grant_types) g
+where
+  client_id = 'Jh5ap2mN94TJmZZ1sVeVmtW9Fpaim190';
+```
+
+```sql+sqlite
+select
+  g.value as grant_types
+from
+  auth0_client c,
+  json_each(grant_types) g
 where
   client_id = 'Jh5ap2mN94TJmZZ1sVeVmtW9Fpaim190';
 ```

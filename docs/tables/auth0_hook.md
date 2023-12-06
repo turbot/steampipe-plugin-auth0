@@ -16,7 +16,7 @@ The `auth0_hook` table provides insights into Hooks within Auth0. As a DevOps en
 ### Enabled hook scripts
 Analyze the settings to understand the active hook scripts in your Auth0 environment. This can help in managing and troubleshooting your authentication workflows.
 
-```sql
+```sql+postgres
 select
   id,
   name,
@@ -29,10 +29,36 @@ where
   enabled;
 ```
 
+```sql+sqlite
+select
+  id,
+  name,
+  dependencies,
+  trigger_id,
+  script
+from
+  auth0_hook
+where
+  enabled = 1;
+```
+
 ### Post change password script
 Review the configuration for post-password-change procedures to assess the elements within your authentication system. This allows you to pinpoint the specific locations where changes have been made, enabling better security management.
 
-```sql
+```sql+postgres
+select
+  id,
+  name,
+  script,
+  dependencies,
+  enabled
+from
+  auth0_hook
+where
+  trigger_id = 'post-change-password';
+```
+
+```sql+sqlite
 select
   id,
   name,
@@ -48,7 +74,20 @@ where
 ### User registration scripts
 Analyze the settings to understand the status and dependencies of user registration scripts in Auth0. This could be beneficial in managing and optimizing the user registration process.
 
-```sql
+```sql+postgres
+select
+  id,
+  name,
+  script,
+  dependencies,
+  enabled
+from
+  auth0_hook
+where
+  trigger_id in ('pre-user-registration', 'post-user-registration');
+```
+
+```sql+sqlite
 select
   id,
   name,

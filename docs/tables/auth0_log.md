@@ -16,7 +16,21 @@ The `auth0_log` table provides insights into the logs within Auth0 Identity Plat
 ### Failed login attempts
 Identify instances where login attempts have failed to gain insights into potential security risks. This allows for a review of the associated IP addresses and user agents, enabling the detection and prevention of unauthorized access.
 
-```sql
+```sql+postgres
+select
+  date,
+  description,
+  ip,
+  user_agent
+from
+  auth0_log
+where
+  type = 'f'
+order by
+  date desc;
+```
+
+```sql+sqlite
 select
   date,
   description,
@@ -33,7 +47,21 @@ order by
 ### Logs filtered by client
 Explore which authentication events are associated with a specific client ID. This can help in analyzing user behavior or troubleshooting issues related to a particular client application.
 
-```sql
+```sql+postgres
+select
+  date,
+  description,
+  ip,
+  is_mobile
+from
+  auth0_log
+where
+  client_id = 'FrSZDDFGUH0afar5LHmCji1khmPmst6R'
+order by
+  date desc;
+```
+
+```sql+sqlite
 select
   date,
   description,
@@ -50,7 +78,21 @@ order by
 ### Account and IP blockings
 Explore instances of account and IP blockings to understand potential security threats. This query helps in identifying suspicious activities by analyzing the patterns of blocked accounts and IP addresses.
 
-```sql
+```sql+postgres
+select
+  date,
+  description,
+  ip,
+  is_mobile
+from
+  auth0_log
+where
+  type in ('limit_mu', 'limit_wc', 'limit_sul')
+order by
+  date desc;
+```
+
+```sql+sqlite
 select
   date,
   description,
@@ -67,7 +109,19 @@ order by
 ### Number of mobile and non-mobile successful logins
 Analyze successful login patterns to understand the proportion of mobile versus non-mobile users. This can aid in tailoring user experiences based on device preference.
 
-```sql
+```sql+postgres
+select
+  is_mobile,
+  count(1)
+from
+  auth0_log
+where
+  type = 's'
+group by
+  is_mobile;
+```
+
+```sql+sqlite
 select
   is_mobile,
   count(1)
