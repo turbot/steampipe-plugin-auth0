@@ -107,7 +107,4 @@ export AUTH0_CLIENT_ID="rCQY1zRwI8ANO38FAw4NgDX6w2HTrNQf"
 export AUTH0_CLIENT_SECRET="p8vxBHRRLiYDRNAQ9sk37sh2-6k_9XY25YgC2YY-mYcw715hvAl9olXg2Iqqpa7o"
 ```
 
-## Get involved
 
-- Open source: https://github.com/turbot/steampipe-plugin-auth0
-- Community: [Join #steampipe on Slack →](https://turbot.com/community/join)
