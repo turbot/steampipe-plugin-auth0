@@ -8,6 +8,7 @@ name: "auth0"
 description: "Use SQL to query users, clients, connections, keys and more from Auth0."
 og_description: "Query Auth0 with SQL! Open source CLI. No DB required."
 og_image: "/images/plugins/turbot/auth0-social-graphic.png"
+engines: ["steampipe", "sqlite", "postgres", "export"]
 ---
 
 # Auth0 + Steampipe
@@ -106,7 +107,4 @@ export AUTH0_CLIENT_ID="rCQY1zRwI8ANO38FAw4NgDX6w2HTrNQf"
 export AUTH0_CLIENT_SECRET="p8vxBHRRLiYDRNAQ9sk37sh2-6k_9XY25YgC2YY-mYcw715hvAl9olXg2Iqqpa7o"
 ```
 
-## Get involved
 
-- Open source: https://github.com/turbot/steampipe-plugin-auth0
-- Community: [Join #steampipe on Slack →](https://turbot.com/community/join)
