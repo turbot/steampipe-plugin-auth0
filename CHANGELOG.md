@@ -1,3 +1,15 @@
+## v0.3.0 [2023-12-13]
+
+_What's new?_
+
+- The plugin can now be downloaded and used with the [Steampipe CLI](https://steampipe.io/install/steampipe.sh), as a [Postgres FDW](https://steampipe.io/install/postgres.sh), as a [SQLite extension](https://steampipe.io/install/sqlite.sh) and as a standalone [exporter](https://steampipe.io/install/export.sh). ([#26](https://github.com/turbot/steampipe-plugin-auth0/pull/26))
+- The table docs have been updated to provide corresponding example queries for Postgres FDW and SQLite extension. ([#26](https://github.com/turbot/steampipe-plugin-auth0/pull/26))
+- Docs license updated to match Steampipe [CC BY-NC-ND license](https://github.com/turbot/steampipe-plugin-auth0/blob/main/docs/LICENSE). ([#26](https://github.com/turbot/steampipe-plugin-auth0/pull/26))
+
+_Dependencies_
+
+- Recompiled plugin with [steampipe-plugin-sdk v5.8.0](https://github.com/turbot/steampipe-plugin-sdk/blob/main/CHANGELOG.md#v580-2023-12-11) that includes plugin server enacapsulation for in-process and GRPC usage, adding Steampipe Plugin SDK version to `_ctx` column, and fixing connection and potential divide-by-zero bugs. ([#27](https://github.com/turbot/steampipe-plugin-auth0/pull/27))
+
 ## v0.2.1 [2023-10-05]
 
 _Dependencies_
