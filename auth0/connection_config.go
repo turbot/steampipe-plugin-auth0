@@ -2,29 +2,13 @@ package auth0
 
 import (
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/schema"
 )
 
 type auth0Config struct {
-	Domain       *string `cty:"domain"`
-	ClientId     *string `cty:"client_id"`
-	ClientSecret *string `cty:"client_secret"`
-	ApiToken     *string `cty:"api_token"`
-}
-
-var ConfigSchema = map[string]*schema.Attribute{
-	"domain": {
-		Type: schema.TypeString,
-	},
-	"client_id": {
-		Type: schema.TypeString,
-	},
-	"client_secret": {
-		Type: schema.TypeString,
-	},
-	"api_token": {
-		Type: schema.TypeString,
-	},
+	Domain       *string `hcl:"domain"`
+	ClientId     *string `hcl:"client_id"`
+	ClientSecret *string `hcl:"client_secret"`
+	ApiToken     *string `hcl:"api_token"`
 }
 
 func ConfigInstance() interface{} {
