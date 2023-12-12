@@ -15,7 +15,7 @@ engines: ["steampipe", "sqlite", "postgres", "export"]
 
 [Auth0](https://www.auth0.com/) is a flexible, drop-in solution to add authentication and authorization services to your applications.
 
-[Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
+[Steampipe](https://steampipe.io) is an open-source zero-ETL engine to instantly query cloud APIs using SQL.
 
 For example:
 
@@ -106,5 +106,3 @@ export AUTH0_DOMAIN=<your_auth0_domain>.<region>.auth0.com
 export AUTH0_CLIENT_ID="rCQY1zRwI8ANO38FAw4NgDX6w2HTrNQf"
 export AUTH0_CLIENT_SECRET="p8vxBHRRLiYDRNAQ9sk37sh2-6k_9XY25YgC2YY-mYcw715hvAl9olXg2Iqqpa7o"
 ```
-
-
