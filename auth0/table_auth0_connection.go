@@ -23,7 +23,7 @@ func tableAuth0Connection() *plugin.Table {
 			KeyColumns: plugin.SingleColumn("id"),
 		},
 
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{Name: "id", Description: "A generated string identifying the connection.", Type: proto.ColumnType_STRING, Transform: transform.FromField("ID")},
 			{Name: "name", Description: "The name of the connection.", Type: proto.ColumnType_STRING},
 			{Name: "display_name", Description: "The display name of the connection.", Type: proto.ColumnType_STRING},
@@ -35,7 +35,7 @@ func tableAuth0Connection() *plugin.Table {
 			{Name: "metadata", Description: "Metadata of the connection.", Type: proto.ColumnType_JSON},
 			{Name: "provisioning_ticket_url", Description: "Provisioning Ticket URL is Ticket URL for Active Directory/LDAP, etc.", Type: proto.ColumnType_STRING, Transform: transform.FromField("ProvisioningTicketURL")},
 			{Name: "show_as_button", Description: "Display connection as a button.", Type: proto.ColumnType_BOOL},
-		},
+		}),
 	}
 }
 

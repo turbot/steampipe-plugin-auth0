@@ -23,7 +23,7 @@ func tableAuth0User() *plugin.Table {
 			KeyColumns: plugin.SingleColumn("id"),
 		},
 
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{Name: "id", Description: "The users' identifier.", Type: proto.ColumnType_STRING, Transform: transform.FromField("ID")},
 			{Name: "connection", Description: "The connection the user belongs to.", Type: proto.ColumnType_STRING},
 			{Name: "email", Description: "The users' email.", Type: proto.ColumnType_STRING},
@@ -54,7 +54,7 @@ func tableAuth0User() *plugin.Table {
 			{Name: "last_ip", Description: "Last IP address from which this user logged in. Read only, cannot be modified.", Type: proto.ColumnType_STRING, Transform: transform.FromField("LastIP")},
 			{Name: "logins_count", Description: "Total number of logins this user has performed. Read only, cannot be modified.", Type: proto.ColumnType_INT},
 			{Name: "multifactor", Description: "List of multi-factor authentication providers with which this user has enrolled.", Type: proto.ColumnType_JSON},
-		},
+		}),
 	}
 }
 

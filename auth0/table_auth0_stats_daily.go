@@ -26,14 +26,14 @@ func tableAuth0StatsDaily() *plugin.Table {
 			},
 		},
 
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{Name: "date", Description: "Date of the stats.", Type: proto.ColumnType_TIMESTAMP},
 			{Name: "logins", Description: "Number of logins.", Type: proto.ColumnType_INT},
 			{Name: "sign_ups", Description: "Number of sign ups.", Type: proto.ColumnType_INT, Transform: transform.FromField("Signups")},
 			{Name: "leaked_passwords", Description: "Number of leaked passwords.", Type: proto.ColumnType_INT},
 			{Name: "created_at", Description: "Timestamp of when the stat started to count.", Type: proto.ColumnType_TIMESTAMP},
 			{Name: "updated_at", Description: "Timestamp of the last update to stat of the day.", Type: proto.ColumnType_TIMESTAMP},
-		},
+		}),
 	}
 }
 

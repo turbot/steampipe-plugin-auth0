@@ -19,13 +19,13 @@ func tableAuth0UserPermission() *plugin.Table {
 			Hydrate:    listAuth0UserPermissions,
 			KeyColumns: plugin.SingleColumn("user_id"),
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{Name: "user_id", Description: "A unique ID for the user.", Type: proto.ColumnType_STRING, Transform: transform.FromQual("user_id")},
 			{Name: "permission_name", Description: "The name of the permission.", Type: proto.ColumnType_STRING, Transform: transform.FromField("Name")},
 			{Name: "description", Description: "The description of the permission.", Type: proto.ColumnType_STRING},
 			{Name: "resource_server_identifier", Description: "The resource server that the permission is attached to.", Type: proto.ColumnType_STRING},
 			{Name: "resource_server_name", Description: "The name of the resource server.", Type: proto.ColumnType_STRING},
-		},
+		}),
 	}
 }
 

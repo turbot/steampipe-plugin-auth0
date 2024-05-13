@@ -19,12 +19,12 @@ func tableAuth0RoleAssignedUser() *plugin.Table {
 			Hydrate:    listAuth0RoleAssignedUsers,
 			KeyColumns: plugin.SingleColumn("role_id"),
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{Name: "role_id", Description: "A unique ID for the role.", Type: proto.ColumnType_STRING, Transform: transform.FromQual("role_id")},
 			{Name: "user_id", Description: "A unique ID for the user.", Type: proto.ColumnType_STRING, Transform: transform.FromField("ID")},
 			{Name: "name", Description: "The name of the user.", Type: proto.ColumnType_STRING},
 			{Name: "email", Description: "The users' email.", Type: proto.ColumnType_STRING},
-		},
+		}),
 	}
 }
 

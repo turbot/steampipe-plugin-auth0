@@ -23,7 +23,7 @@ func tableAuth0Action() *plugin.Table {
 			KeyColumns: plugin.SingleColumn("id"),
 		},
 
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{Name: "id", Description: "A unique ID for the action.", Type: proto.ColumnType_STRING, Transform: transform.FromField("ID")},
 			{Name: "name", Description: "The name of the action.", Type: proto.ColumnType_STRING},
 			{Name: "supported_triggers", Description: "List of triggers that this action supports. At this time, an action can only target a single trigger at a time.", Type: proto.ColumnType_JSON},
@@ -37,7 +37,7 @@ func tableAuth0Action() *plugin.Table {
 			{Name: "built_at", Description: "The time when this action was built successfully.", Type: proto.ColumnType_TIMESTAMP},
 			{Name: "created_at", Description: "The time when this action was created.", Type: proto.ColumnType_TIMESTAMP},
 			{Name: "updated_at", Description: "The time when this action was updated.", Type: proto.ColumnType_TIMESTAMP},
-		},
+		}),
 	}
 }
 
