@@ -17,7 +17,7 @@ func tableAuth0TenantSettings() *plugin.Table {
 			Hydrate: listAuth0TenantSettings,
 		},
 
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{Name: "change_password", Description: "Change password page settings.", Type: proto.ColumnType_JSON},
 			{Name: "guardian_mfa_page", Description: "Guardian MFA page settings.", Type: proto.ColumnType_JSON},
 			{Name: "default_audience", Description: "Default audience for API Authorization.", Type: proto.ColumnType_STRING},
@@ -38,7 +38,7 @@ func tableAuth0TenantSettings() *plugin.Table {
 			{Name: "default_redirection_uri", Description: "The default absolute redirection uri, must be https and cannot contain a fragment.", Type: proto.ColumnType_STRING},
 			{Name: "enabled_locales", Description: "Supported locales for the UI.", Type: proto.ColumnType_JSON},
 			{Name: "session_cookie", Description: "Session cookie settings.", Type: proto.ColumnType_JSON},
-		},
+		}),
 	}
 }
 

@@ -22,7 +22,7 @@ func tableAuth0SigningKey() *plugin.Table {
 			KeyColumns: plugin.SingleColumn("kid"),
 		},
 
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{Name: "kid", Description: "The key id of the signing key.", Type: proto.ColumnType_STRING, Transform: transform.FromField("KID")},
 			{Name: "cert", Description: "The public certificate of the signing key.", Type: proto.ColumnType_STRING},
 			{Name: "pkcs7", Description: "The public certificate of the signing key in pkcs7 format.", Type: proto.ColumnType_STRING, Transform: transform.FromField("PKCS7")},
@@ -35,7 +35,7 @@ func tableAuth0SigningKey() *plugin.Table {
 			{Name: "thumbprint", Description: "The cert thumbprint.", Type: proto.ColumnType_STRING},
 			{Name: "revoked", Description: "True if the key is revoked.", Type: proto.ColumnType_BOOL},
 			{Name: "revoked_at", Description: "The date and time when the key was revoked.", Type: proto.ColumnType_TIMESTAMP},
-		},
+		}),
 	}
 }
 

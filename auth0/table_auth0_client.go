@@ -23,7 +23,7 @@ func tableAuth0Client() *plugin.Table {
 			KeyColumns: plugin.SingleColumn("client_id"),
 		},
 
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{Name: "client_id", Description: "The ID of the client.", Type: proto.ColumnType_STRING, Transform: transform.FromField("ClientID")},
 			{Name: "name", Description: "The name of the client.", Type: proto.ColumnType_STRING},
 			{Name: "description", Description: "Free text description of the purpose of the Client.", Type: proto.ColumnType_STRING},
@@ -60,7 +60,7 @@ func tableAuth0Client() *plugin.Table {
 			{Name: "refresh_token", Description: "Refresh Token settings for our Client.", Type: proto.ColumnType_JSON},
 			{Name: "organization_usage", Description: "Organization Usage.", Type: proto.ColumnType_STRING},
 			{Name: "organization_require_behavior", Description: "Organization Require Behavior.", Type: proto.ColumnType_STRING},
-		},
+		}),
 	}
 }
 

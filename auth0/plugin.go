@@ -18,6 +18,12 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 		ConnectionConfigSchema: &plugin.ConnectionConfigSchema{
 			NewInstance: ConfigInstance,
 		},
+		ConnectionKeyColumns: []plugin.ConnectionKeyColumn{
+			{
+				Name:    "domain_name",
+				Hydrate: getDomainName,
+			},
+		},
 		TableMap: map[string]*plugin.Table{
 			"auth0_action":             tableAuth0Action(),
 			"auth0_client":             tableAuth0Client(),

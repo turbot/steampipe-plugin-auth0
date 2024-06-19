@@ -23,7 +23,7 @@ func tableAuth0Log() *plugin.Table {
 			KeyColumns: plugin.SingleColumn("log_id"),
 		},
 
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{Name: "log_id", Description: "Log identifier", Type: proto.ColumnType_STRING, Transform: transform.FromField("LogID")},
 			{Name: "date", Description: "The date when the log event was created.", Type: proto.ColumnType_TIMESTAMP},
 			{Name: "type", Description: "The log event type.", Type: proto.ColumnType_STRING},
@@ -46,7 +46,7 @@ func tableAuth0Log() *plugin.Table {
 			{Name: "strategy_type", Description: "Type of strategy involved in the event.", Type: proto.ColumnType_STRING},
 			{Name: "is_mobile", Description: "Whether the client was a mobile device (true) or desktop/laptop/server (false).", Type: proto.ColumnType_BOOL},
 			{Name: "location_info", Description: "Information about the location that triggered this event based on the `IP`.", Type: proto.ColumnType_JSON},
-		},
+		}),
 	}
 }
 
