@@ -1,7 +1,7 @@
 package auth0
 
 import (
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin"
 )
 
 type auth0Config struct {
@@ -17,9 +17,9 @@ func ConfigInstance() interface{} {
 
 // GetConfig :: retrieve and cast connection config from query data
 func GetConfig(connection *plugin.Connection) auth0Config {
-	if connection == nil || connection.Config == nil {
+	if connection == nil || connection.GetConfig() == nil {
 		return auth0Config{}
 	}
-	config, _ := connection.Config.(auth0Config)
+	config, _ := connection.GetConfig().(auth0Config)
 	return config
 }

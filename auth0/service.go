@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/auth0/go-auth0/management"
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin"
 )
 
 func Connect(ctx context.Context, d *plugin.QueryData) (*management.Management, error) {
@@ -27,19 +27,19 @@ func connectUncached(ctx context.Context, d *plugin.QueryData, _ *plugin.Hydrate
 	domain = os.Getenv("AUTH0_DOMAIN")
 	if auth0Config.Domain != nil {
 		domain = *auth0Config.Domain
-	} 
+	}
 	clientId = os.Getenv("AUTH0_CLIENT_ID")
 	if auth0Config.ClientId != nil {
 		clientId = *auth0Config.ClientId
-	} 
+	}
 	clientSecret = os.Getenv("AUTH0_CLIENT_SECRET")
 	if auth0Config.ClientSecret != nil {
 		clientSecret = *auth0Config.ClientSecret
-	} 
+	}
 	apiToken = os.Getenv("AUTH0_API_TOKEN")
 	if auth0Config.ApiToken != nil {
 		apiToken = *auth0Config.ApiToken
-	} 
+	}
 
 	// No creds
 	if domain == "" {
